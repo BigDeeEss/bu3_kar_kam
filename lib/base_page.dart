@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 // Import project-specific files.
-// import 'package:kar_kam/base_page_view.dart';
+import 'package:kar_kam/base_page_view.dart';
 // import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
 import 'package:kar_kam/page_specs.dart';
@@ -47,7 +47,7 @@ class _BasePageState extends State<BasePage> with GetItStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Rect? rect = appBarKey.globalPaintBounds;
 
-      // Check rect and then setState.
+      // Check rect is not null and call setState.
       assert(
         rect != null,
         '_BasePageState, initState...error, rect is null...',
@@ -76,14 +76,13 @@ class _BasePageState extends State<BasePage> with GetItStateMixin {
               height: appBarRect!.height * appBarHeightScaleFactor,
             )
           : null,
-      body: const Placeholder(),
-      // body: BasePageView(
-      //   pageContents: <Widget>[
-      //     widget.pageSpec.contents,
-      //     SlidingGuides(),
-      //     ButtonArray(),
-      //   ],
-      // ),
+      body: BasePageView(
+        pageContents: <Widget>[
+          widget.pageSpec.contents,
+          // SlidingGuides(),
+          // ButtonArray(),
+        ],
+      ),
     );
   }
 }
