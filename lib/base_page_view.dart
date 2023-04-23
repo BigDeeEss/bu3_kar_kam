@@ -88,25 +88,16 @@ class _BasePageViewState extends State<_BasePageView> {
         notify: false,
       );
 
-      // // Update [buttonArrayRect] in the instance of [AppData] registered
-      // // with GetIt.
-      // GetItService.instance<AppData>().change(
-      //   identifier: 'buttonArrayRect',
-      //   notify: false,
-      // );
-      //
-      // // Update [buttonArrayRect] in the instance of [AppData] registered
-      // // with GetIt.
-      // GetItService.instance<AppData>().change(
-      //   identifier: 'buttonCoordinates',
-      //   notify: false,
-      // );
+      // Initiate instance of [AppData] registered with GetIt.
+      // [AppData.init] completes without doing anything if
+      // [AppData.basePageViewRect] = true.
+      GetItService.instance<AppData>().init();
 
       // Rebuild widget with [pageSpec.contents] instead of [Container].
       if (pageContents == null) {
         setState(() {
           // pageContents = widget.pageContents;
-          pageContents = [BasePageViewTest()];
+          pageContents = [const BasePageViewTest()];
         });
       }
     });

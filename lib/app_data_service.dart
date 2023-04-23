@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Import project-specific files.
-import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/app_data.dart';
+import 'package:kar_kam/lib/get_it_service.dart';
+import 'package:kar_kam/lib/rect_extension.dart';
 
 /// Implements a Shared Preferences method for accessing stored app data.
 class AppDataService extends AppData {
@@ -12,6 +13,9 @@ class AppDataService extends AppData {
     /// initialization, so simulate it here with a Future.delayed function.
     Future.delayed(const Duration(seconds: 1))
         .then((_) => GetItService.signalReady<AppDataService>(this));
+
+    /// Register that [init] has not yet completed.
+    initComplete = false;
   }
 
   /// Updates this using string to determine which field is set to newValue.
@@ -45,5 +49,78 @@ class AppDataService extends AppData {
     if (notify) {
       notifyListeners();
     }
+  }
+
+  /// Initiates field variables; only called once after app start.
+  @override
+  void init() {
+    // Exit if init has already been executed.
+    if (initComplete) return;
+
+    // Calculate and upload [buttonArrayRect].
+    buttonArrayRect = setButtonArrayRect();
+
+    // Calculate and upload [buttonCoordinates].
+    buttonCoordinates = setButtonCoordinates();
+
+    //  Register that init has completed.
+    initComplete = true;
+    print('AppDataService, init...buttonArrayRect = $buttonArrayRect');
+    print('AppDataService, init...buttonCoordinates = $buttonCoordinates');
+  }
+
+  /// Calculates the list of coordinates for placing [Button] components
+  /// in [ButtonArray].
+  @override
+  List<double> setButtonCoordinates() {
+    // A length -- button width plus padding -- for defining [coordinateList].
+    // Using two parameters allows for the bounding boxes of buttons to overlap.
+    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
+
+    // Loop over items in [buttonSpecList] and convert each to its
+    // corresponding position.
+    List<double> coordinateList = [];
+    for (int i = 0; i < buttonSpecList.length; i++) {
+      coordinateList.add(dim * i);
+    }
+    return coordinateList;
+  }
+
+  // Calculates the bounding box for [ButtonArray].
+  @override
+  Rect setButtonArrayRect() {
+    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
+    double shortLength = 2.0 * (buttonRadius + buttonPaddingMainAxis);
+    double longLength = (buttonSpecList.length - 1) * dim + shortLength;
+
+    // Generate Rect of the correct size at screen top left.
+    Rect rect = Rect.zero;
+    if (buttonAxis == Axis.vertical) {
+      rect = const Offset(0.0, 0.0) & Size(shortLength, longLength);
+    } else {
+      rect = const Offset(0.0, 0.0) & Size(longLength, shortLength);
+    }
+
+    Map<Alignment, Function> map = {
+      Alignment.topLeft: (Rect rect) =>
+          rect.moveTopLeftTo(basePageViewRect!.topLeft),
+      Alignment.topRight: (Rect rect) =>
+          rect.moveTopRightTo(basePageViewRect!.topRight),
+      Alignment.bottomLeft: (Rect rect) =>
+          rect.moveBottomLeftTo(basePageViewRect!.bottomLeft),
+      Alignment.bottomRight: (Rect rect) =>
+          rect.moveBottomRightTo(basePageViewRect!.bottomRight),
+    };
+
+    if (basePageViewRect != Rect.zero) {
+      rect = map[buttonAlignment]?.call(rect);
+    } else {
+      assert(
+      basePageViewRect != null,
+      'AppData, get buttonArrayRect...error, '
+          'basePageViewRect is null.');
+    }
+
+    return rect;
   }
 }
