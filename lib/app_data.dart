@@ -28,6 +28,10 @@ abstract class AppData extends ChangeNotifier {
   /// An alternative padding for in between buttons in [ButtonArray].
   double buttonPaddingMainAxisAlt = 12.5;
 
+  /// Defines the padding surrounding each button.
+  EdgeInsetsDirectional get buttonPadding =>
+      EdgeInsetsDirectional.all(buttonPaddingMainAxis);
+
   /// The available screen dimensions.
   Rect? basePageViewRect;
 
@@ -40,6 +44,9 @@ abstract class AppData extends ChangeNotifier {
     filesButton,
     homeButton,
   ];
+
+  /// Whether [BoxedContainer] draws bounding boxes or not.
+  bool drawLayoutBounds = true;
 
   /// Represents whether init has completed or not.
   bool initComplete = false;

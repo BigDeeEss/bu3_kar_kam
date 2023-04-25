@@ -96,8 +96,8 @@ class _BasePageViewState extends State<_BasePageView> {
       // Rebuild widget with [pageSpec.contents] instead of [Container].
       if (pageContents == null) {
         setState(() {
-          // pageContents = widget.pageContents;
-          pageContents = [const BasePageViewTest()];
+          pageContents = widget.pageContents;
+          // pageContents = [const BasePageViewTest()];
         });
       }
     });

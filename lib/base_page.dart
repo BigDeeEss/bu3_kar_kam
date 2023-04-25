@@ -4,7 +4,7 @@ import 'package:get_it_mixin/get_it_mixin.dart';
 
 // Import project-specific files.
 import 'package:kar_kam/base_page_view.dart';
-// import 'package:kar_kam/button_array.dart';
+import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
 import 'package:kar_kam/page_specs.dart';
 import 'package:kar_kam/app_data.dart';
@@ -80,7 +80,7 @@ class _BasePageState extends State<BasePage> with GetItStateMixin {
         pageContents: <Widget>[
           widget.pageSpec.contents,
           // SlidingGuides(),
-          // ButtonArray(),
+          ButtonArray(),
         ],
       ),
     );
