@@ -35,8 +35,8 @@ class AppDataService extends AppData {
       // 'buttonCoordinates': (newValue) =>
       // buttonCoordinates = updateButtonCoordinates(),
       'basePageViewRect': (Rect newValue) => basePageViewRect = newValue,
-      // 'buttonAlignment': (newValue) => cycleButtonAlignment(),
-      // 'buttonAxis': (newValue) => toggleButtonAxis(),
+      'buttonAlignment': (newValue) => cycleButtonAlignment(),
+      'buttonAxis': (newValue) => toggleButtonAxis(),
       // 'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'settingsPageListTileFadeEffect': (newValue) =>
@@ -49,6 +49,23 @@ class AppDataService extends AppData {
     if (notify) {
       notifyListeners();
     }
+  }
+
+  void cycleButtonAlignment() {
+    // Define a map which can convert [buttonAlignment] to another
+    // [Alignment] type.
+    Map<Alignment, Alignment> map = {
+      Alignment.topLeft: Alignment.topRight,
+      Alignment.topRight: Alignment.bottomRight,
+      Alignment.bottomRight: Alignment.bottomLeft,
+      Alignment.bottomLeft: Alignment.topLeft,
+    };
+
+    // Do the conversion using [map].
+    buttonAlignment = map[buttonAlignment]!;
+
+    // Update [buttonArrayRect].
+    buttonArrayRect = setButtonArrayRect();
   }
 
   /// Initiates field variables; only called once after app start.
@@ -118,6 +135,12 @@ class AppDataService extends AppData {
       coordinateList.add(dim * i);
     }
     return coordinateList;
+  }
+
+  /// Toggles [buttonAxis].
+  void toggleButtonAxis() {
+    buttonAxis = flipAxis(buttonAxis);
+    buttonArrayRect = setButtonArrayRect();
   }
 
   /// Toggles [drawLayoutBounds].
