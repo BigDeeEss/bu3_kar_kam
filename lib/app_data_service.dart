@@ -39,8 +39,8 @@ class AppDataService extends AppData {
       // 'buttonAxis': (newValue) => toggleButtonAxis(),
       // 'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
-      // 'settingsPageListTileFadeEffect': (newValue) =>
-      //     toggleSettingsPageListTileFadeEffect(),
+      'settingsPageListTileFadeEffect': (newValue) =>
+          toggleSettingsPageListTileFadeEffect(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -122,4 +122,8 @@ class AppDataService extends AppData {
 
   /// Toggles [drawLayoutBounds].
   void toggleDrawLayoutBounds() => drawLayoutBounds = !drawLayoutBounds;
+
+  /// Toggles [settingsPageListTileFadeEffect].
+  void toggleSettingsPageListTileFadeEffect() =>
+      settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect;
 }
