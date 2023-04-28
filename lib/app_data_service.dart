@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/lib/rect_extension.dart';
+import 'package:kar_kam/lib/map_extension.dart';
 
 /// Implements a Shared Preferences method for accessing stored app data.
 class AppDataService extends AppData {
@@ -37,7 +38,7 @@ class AppDataService extends AppData {
       'basePageViewRect': (Rect newValue) => basePageViewRect = newValue,
       'buttonAlignment': (newValue) => cycleButtonAlignment(),
       'buttonAxis': (newValue) => toggleButtonAxis(),
-      // 'buttonRadius': (newValue) => cycleButtonRadius(),
+      'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'settingsPageListTileFadeEffect': (newValue) =>
           toggleSettingsPageListTileFadeEffect(),
@@ -68,16 +69,33 @@ class AppDataService extends AppData {
     buttonArrayRect = setButtonArrayRect();
   }
 
+  void cycleButtonRadius() {
+    // Define a map which can convert an integer to a double that represents
+    // a value for [buttonRadius].
+    Map<int, double> map = {
+      0: 28.0,
+      1: 32.0,
+      2: 36.0,
+      3: 24.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle [buttonRadius].
+    int buttonRadiusIntRepresentation = map.inverse()[buttonRadius]!;
+    buttonRadius = map[(buttonRadiusIntRepresentation + 1) % map.length]!;
+
+    // Update dependencies: [buttonArrayRect] and [buttonCoordinates].
+    buttonArrayRect = setButtonArrayRect();
+    buttonCoordinates = setButtonCoordinates();
+  }
+
   /// Initiates field variables; only called once after app start.
   @override
   void init() {
     // Exit if init has already been executed.
     if (initComplete) return;
 
-    // Calculate and upload [buttonArrayRect].
+    // Calculate and upload [buttonArrayRect] and [buttonCoordinates].
     buttonArrayRect = setButtonArrayRect();
-
-    // Calculate and upload [buttonCoordinates].
     buttonCoordinates = setButtonCoordinates();
 
     // Register that init has completed.

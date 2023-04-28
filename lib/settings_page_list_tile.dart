@@ -103,8 +103,9 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
   double pathRadius = 0.0;
 
   // A temporary double for determining the slope of the connecting
-  // straight line segment that tilesnfollow as they pass around ButtonArray.
-  static double get sf => 1.125;
+  // straight line segment that tiles follow as they pass around [ButtonArray].
+  // static double get sf => 1.125;
+  static double get sf => 1.0625;
 
   /// The construction [Rect] that overlaps with [guestRect.topLeft] and
   /// [guestRect.topRight] and has the same width as [guestRect].

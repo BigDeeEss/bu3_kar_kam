@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 // Import project-specific files.
+import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/button.dart';
 import 'package:kar_kam/button_specs.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
-import 'package:kar_kam/app_data.dart';
+import 'package:kar_kam/sliding_guides.dart';
 
 /// Implements a linear horizontal or vertical array of Buttons.
 class ButtonArray extends StatelessWidget with GetItMixin {
@@ -78,6 +79,11 @@ class ButtonArray extends StatelessWidget with GetItMixin {
         ));
       }
     }
+
+    if (GetItService.instance<AppData>().drawSlidingGuides) {
+      buttonList.add(SlidingGuides());
+    }
+
 
     // Need to return a single Widget and so return an instance of [Stack]
     // with its children defined to be a list of buttons.
