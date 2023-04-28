@@ -38,7 +38,7 @@ class AppDataService extends AppData {
       // 'buttonAlignment': (newValue) => cycleButtonAlignment(),
       // 'buttonAxis': (newValue) => toggleButtonAxis(),
       // 'buttonRadius': (newValue) => cycleButtonRadius(),
-      // 'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
+      'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       // 'settingsPageListTileFadeEffect': (newValue) =>
       //     toggleSettingsPageListTileFadeEffect(),
     };
@@ -65,22 +65,6 @@ class AppDataService extends AppData {
 
     // Register that init has completed.
     initComplete = true;
-  }
-
-  /// Calculates the list of coordinates for placing [Button] components
-  /// in [ButtonArray].
-  List<double> setButtonCoordinates() {
-    // A length -- button width plus padding -- for defining [coordinateList].
-    // Using two parameters allows for the bounding boxes of buttons to overlap.
-    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
-
-    // Loop over items in [buttonSpecList] and convert each to its
-    // corresponding position.
-    List<double> coordinateList = [];
-    for (int i = 0; i < buttonSpecList.length; i++) {
-      coordinateList.add(dim * i);
-    }
-    return coordinateList;
   }
 
   // Calculates the bounding box for [ButtonArray].
@@ -119,4 +103,23 @@ class AppDataService extends AppData {
 
     return rect;
   }
+
+  /// Calculates the list of coordinates for placing [Button] components
+  /// in [ButtonArray].
+  List<double> setButtonCoordinates() {
+    // A length -- button width plus padding -- for defining [coordinateList].
+    // Using two parameters allows for the bounding boxes of buttons to overlap.
+    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
+
+    // Loop over items in [buttonSpecList] and convert each to its
+    // corresponding position.
+    List<double> coordinateList = [];
+    for (int i = 0; i < buttonSpecList.length; i++) {
+      coordinateList.add(dim * i);
+    }
+    return coordinateList;
+  }
+
+  /// Toggles [drawLayoutBounds].
+  void toggleDrawLayoutBounds() => drawLayoutBounds = !drawLayoutBounds;
 }
