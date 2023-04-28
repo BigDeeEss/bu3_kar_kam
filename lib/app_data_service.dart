@@ -17,8 +17,8 @@ class AppDataService extends AppData {
     /// Register that [init] has not yet completed.
     initComplete = false;
   }
-
-  /// Updates this using string to determine which field is set to newValue.
+  /// Updates [this] using [identifier] to determine which field to change and
+  /// calling the appropriate change function using the unspecified [newValue].
   @override
   void change({
     required String identifier,
@@ -69,7 +69,6 @@ class AppDataService extends AppData {
 
   /// Calculates the list of coordinates for placing [Button] components
   /// in [ButtonArray].
-  @override
   List<double> setButtonCoordinates() {
     // A length -- button width plus padding -- for defining [coordinateList].
     // Using two parameters allows for the bounding boxes of buttons to overlap.
@@ -85,7 +84,6 @@ class AppDataService extends AppData {
   }
 
   // Calculates the bounding box for [ButtonArray].
-  @override
   Rect setButtonArrayRect() {
     double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
     double shortLength = 2.0 * (buttonRadius + buttonPaddingMainAxis);

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Import project-specific files.
-// import 'package:kar_kam/settings_page_contents.dart';
+import 'package:kar_kam/settings_page_contents.dart';
 
 /// Allows for the easy referencing of page content.
 class PageSpec {
@@ -30,9 +30,9 @@ PageSpec filesPage = PageSpec(
   contents: Container(),
 );
 
-// /// Settings page specs.
-// PageSpec settingsPage = PageSpec(
-//   title: 'Settings',
-//   contents: SettingsPageContents(),
-//   // contents: Container(),
-// );
+/// Settings page specs.
+PageSpec settingsPage = PageSpec(
+  title: 'Settings',
+  contents: SettingsPageContents(),
+  // contents: Container(),
+);
