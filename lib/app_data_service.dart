@@ -92,12 +92,19 @@ class AppDataService extends AppData {
     // Update dependencies: [buttonArrayRect] and [buttonCoordinates].
     buttonArrayRect = setButtonArrayRect();
     buttonCoordinates = setButtonCoordinates();
+
+    setUserPreferences('buttonRadius', buttonRadius);
   }
 
   Future<void> initialiseAppData() async {
     final userPreferences = await SharedPreferences.getInstance();
 
-    buttonRadius = userPreferences.getDouble('buttonRadius') ?? 28.0;
+    buttonRadius = userPreferences.getDouble('buttonRadius');
+    buttonRadius = buttonRadius ?? 28.0;
+    setUserPreferences('buttonRadius', buttonRadius);
+    // Future<void> (() {
+    //   userPreferences.setDouble('buttonRadius', buttonRadius!);
+    // });
   }
 
   /// Initiates field variables; only called once after app start.
@@ -165,6 +172,13 @@ class AppDataService extends AppData {
       coordinateList.add(dim * i);
     }
     return coordinateList;
+  }
+
+  Future<void> setUserPreferences(String key, var value) async {
+    final userPreferences = await SharedPreferences.getInstance();
+    if (value is double) {
+      userPreferences.setDouble(key, value);
+    }
   }
 
   /// Toggles [buttonAxis].
