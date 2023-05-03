@@ -24,7 +24,7 @@ class Button extends StatelessWidget with GetItMixin {
         watchOnly((AppData a) => a.buttonPadding);
 
     // Watch for changes to [AppData.buttonRadius] registered with [GetIt].
-    double buttonRadius = watchOnly((AppData a) => a.buttonRadius);
+    double buttonRadius = watchOnly((AppData a) => a.buttonRadius!);
 
     // An IconButton with a circular background.
     //

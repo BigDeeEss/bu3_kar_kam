@@ -22,7 +22,7 @@ class SlidingGuides extends StatelessWidget with GetItMixin {
     Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment);
 
     // Watch for changes to [AppData.buttonRadius] registered with GetIt.
-    double buttonRadius = watchOnly((AppData a) => a.buttonRadius);
+    double buttonRadius = watchOnly((AppData a) => a.buttonRadius!);
 
     // Watch for changes to [AppData.buttonRadius] registered with GetIt.
     double buttonPaddingMainAxis = watchOnly((AppData a) => a.buttonPaddingMainAxis);

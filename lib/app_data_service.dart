@@ -1,5 +1,6 @@
 // Import flutter packages.
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Import project-specific files.
 import 'package:kar_kam/app_data.dart';
@@ -10,6 +11,8 @@ import 'package:kar_kam/lib/map_extension.dart';
 /// Implements a Shared Preferences method for accessing stored app data.
 class AppDataService extends AppData {
   AppDataService() {
+    initialiseAppData();
+    // userPreferences = await SharedPreferences.getInstance();
     /// The loading of app data from file will require some async
     /// initialization, so simulate it here with a Future.delayed function.
     Future.delayed(const Duration(seconds: 1))
@@ -18,6 +21,7 @@ class AppDataService extends AppData {
     /// Register that [init] has not yet completed.
     initComplete = false;
   }
+
   /// Updates [this] using [identifier] to determine which field to change and
   /// calling the appropriate change function using the unspecified [newValue].
   @override
@@ -27,7 +31,6 @@ class AppDataService extends AppData {
     bool notify = true,
   }) {
     // Define a map that can convert [string] to a class method.
-    // ToDo: add functionality for other fields in [AppData] class.
     Map<String, Function> map = {
       // 'appBarHeightScaleFactor': (double newValue) =>
       // appBarHeightScaleFactor = newValue,
@@ -47,11 +50,13 @@ class AppDataService extends AppData {
     // Call the function determined from [map] and update relevant field.
     map[identifier]?.call(newValue);
 
+    // Notify listeners only if instructed to do so. Default is to notify.
     if (notify) {
       notifyListeners();
     }
   }
 
+  /// Cycle and upload a new [buttonAlignment]; update dependencies.
   void cycleButtonAlignment() {
     // Define a map which can convert [buttonAlignment] to another
     // [Alignment] type.
@@ -65,10 +70,11 @@ class AppDataService extends AppData {
     // Do the conversion using [map].
     buttonAlignment = map[buttonAlignment]!;
 
-    // Update [buttonArrayRect].
+    // Update dependencies: [buttonArrayRect].
     buttonArrayRect = setButtonArrayRect();
   }
 
+  /// Cycle and upload a new [buttonRadius]; update dependencies.
   void cycleButtonRadius() {
     // Define a map which can convert an integer to a double that represents
     // a value for [buttonRadius].
@@ -88,9 +94,15 @@ class AppDataService extends AppData {
     buttonCoordinates = setButtonCoordinates();
   }
 
+  Future<void> initialiseAppData() async {
+    final userPreferences = await SharedPreferences.getInstance();
+
+    buttonRadius = userPreferences.getDouble('buttonRadius') ?? 28.0;
+  }
+
   /// Initiates field variables; only called once after app start.
   @override
-  void init() {
+  void initialise() {
     // Exit if init has already been executed.
     if (initComplete) return;
 
@@ -102,10 +114,10 @@ class AppDataService extends AppData {
     initComplete = true;
   }
 
-  // Calculates the bounding box for [ButtonArray].
+  /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
-    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
-    double shortLength = 2.0 * (buttonRadius + buttonPaddingMainAxis);
+    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
+    double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
 
     // Generate Rect of the correct size at screen top left.
@@ -144,7 +156,7 @@ class AppDataService extends AppData {
   List<double> setButtonCoordinates() {
     // A length -- button width plus padding -- for defining [coordinateList].
     // Using two parameters allows for the bounding boxes of buttons to overlap.
-    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
+    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
 
     // Loop over items in [buttonSpecList] and convert each to its
     // corresponding position.

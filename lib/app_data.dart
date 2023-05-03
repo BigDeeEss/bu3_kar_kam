@@ -36,7 +36,7 @@ abstract class AppData extends ChangeNotifier {
   Rect? basePageViewRect;
 
   /// Button radius for [Button] class.
-  double buttonRadius = 28.0;
+  double? buttonRadius;
 
   /// List of [ButtonSpec] for [ButtonArray].
   List<ButtonSpec> buttonSpecList = [
@@ -75,5 +75,5 @@ abstract class AppData extends ChangeNotifier {
   });
 
   /// Initiates field variables; only called once after app start.
-  void init();
+  void initialise();
 }

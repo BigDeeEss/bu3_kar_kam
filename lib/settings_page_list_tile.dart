@@ -35,7 +35,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     } else {
       assert(rect is Rect, 'SettingsPageListTile...error...guestRect is null');
     }
-    double buttonRadius = GetItService.instance<AppData>().buttonRadius;
+    double buttonRadius = GetItService.instance<AppData>().buttonRadius!;
     double settingsPageListTilePadding =
         GetItService.instance<AppData>().settingsPageListTilePadding;
     double settingsPageListTileRadius =

@@ -91,7 +91,7 @@ class _BasePageViewState extends State<_BasePageView> {
       // Initiate instance of [AppData] registered with GetIt.
       // [AppData.init] completes without doing anything if
       // [AppData.basePageViewRect] = true.
-      GetItService.instance<AppData>().init();
+      GetItService.instance<AppData>().initialise();
 
       // Rebuild widget with [pageSpec.contents] instead of [Container].
       if (pageContents == null) {
