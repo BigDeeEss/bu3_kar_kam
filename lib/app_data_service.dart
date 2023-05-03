@@ -176,6 +176,9 @@ class AppDataService extends AppData {
 
   Future<void> setUserPreferences(String key, var value) async {
     final userPreferences = await SharedPreferences.getInstance();
+
+    await Future.delayed(const Duration(seconds: 10));
+
     if (value is double) {
       userPreferences.setDouble(key, value);
     }
