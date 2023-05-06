@@ -1,5 +1,5 @@
 //  Import flutter packages.
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 extension AlignmentExtension on Alignment {
   bool get isBottom {

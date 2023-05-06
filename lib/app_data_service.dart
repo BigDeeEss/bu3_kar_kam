@@ -4,9 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Import project-specific files.
 import 'package:kar_kam/app_data.dart';
+import 'package:kar_kam/lib/axis_extension.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
-import 'package:kar_kam/lib/rect_extension.dart';
 import 'package:kar_kam/lib/map_extension.dart';
+import 'package:kar_kam/lib/rect_extension.dart';
 
 /// Implements a Shared Preferences method for accessing stored app data.
 class AppDataService extends AppData {
@@ -93,6 +94,7 @@ class AppDataService extends AppData {
     buttonArrayRect = setButtonArrayRect();
     buttonCoordinates = setButtonCoordinates();
 
+    // Save user preference for [buttonRadius] to storage.
     setUserPreferences('buttonRadius', buttonRadius);
   }
 
@@ -102,6 +104,10 @@ class AppDataService extends AppData {
     buttonRadius = userPreferences.getDouble('buttonRadius');
     buttonRadius = buttonRadius ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
+
+    buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
+    buttonAxis = buttonAxis ?? Axis.vertical;
+    setUserPreferences('buttonAxis', buttonAxis.toString());
     // Future<void> (() {
     //   userPreferences.setDouble('buttonRadius', buttonRadius!);
     // });
@@ -178,17 +184,26 @@ class AppDataService extends AppData {
     final userPreferences = await SharedPreferences.getInstance();
 
     // ToDo: Remove this wait function.
-    await Future.delayed(const Duration(seconds: 10));
+    // await Future.delayed(const Duration(seconds: 10));
 
     if (value is double) {
       userPreferences.setDouble(key, value);
+    } else if (value is String) {
+      userPreferences.setString(key, value);
     }
   }
 
   /// Toggles [buttonAxis].
   void toggleButtonAxis() {
-    buttonAxis = flipAxis(buttonAxis);
+    buttonAxis = flipAxis(buttonAxis!);
     buttonArrayRect = setButtonArrayRect();
+    print('buttonAxis =  $buttonAxis');
+    print('buttonAxis.toString() =  ${buttonAxis.toString()}');
+    print(buttonAxis.runtimeType);
+    print(buttonAxis.toString().runtimeType);
+
+    // Save user preference for [buttonAxis] to storage.
+    setUserPreferences('buttonAxis', buttonAxis.toString());
   }
 
   /// Toggles [drawLayoutBounds].

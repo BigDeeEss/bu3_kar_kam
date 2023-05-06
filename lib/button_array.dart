@@ -26,7 +26,7 @@ class ButtonArray extends StatelessWidget with GetItMixin {
     Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment);
 
     // Watch for changes to [AppData.buttonAxis] registered with [GetIt].
-    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis);
+    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis!);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     List<double> buttonCoordinates = watchOnly((AppData a) => a.buttonCoordinates)!;

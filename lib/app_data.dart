@@ -17,7 +17,7 @@ abstract class AppData extends ChangeNotifier {
   Rect? buttonArrayRect;
 
   /// The axis for [ButtonArray].
-  Axis buttonAxis = Axis.horizontal;
+  Axis? buttonAxis = Axis.horizontal;
 
   /// Coordinates for [ButtonArray].
   List<double>? buttonCoordinates;
