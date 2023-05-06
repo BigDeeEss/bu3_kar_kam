@@ -46,7 +46,7 @@ abstract class AppData extends ChangeNotifier {
   ];
 
   /// Whether [BoxedContainer] draws bounding boxes or not.
-  bool drawLayoutBounds = true;
+  bool? drawLayoutBounds;
 
   /// Whether [ButtonArray] includes [SlidingGuides] or not.
   bool drawSlidingGuides = true;

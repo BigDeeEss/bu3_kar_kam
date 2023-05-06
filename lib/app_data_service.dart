@@ -108,9 +108,10 @@ class AppDataService extends AppData {
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
     buttonAxis = buttonAxis ?? Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
-    // Future<void> (() {
-    //   userPreferences.setDouble('buttonRadius', buttonRadius!);
-    // });
+
+    drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
+    drawLayoutBounds = drawLayoutBounds ?? false;
+    setUserPreferences('drawLayoutBounds', drawLayoutBounds);
   }
 
   /// Initiates field variables; only called once after app start.
@@ -190,6 +191,8 @@ class AppDataService extends AppData {
       userPreferences.setDouble(key, value);
     } else if (value is String) {
       userPreferences.setString(key, value);
+    } else if (value is bool) {
+      userPreferences.setBool(key, value);
     }
   }
 
@@ -207,7 +210,12 @@ class AppDataService extends AppData {
   }
 
   /// Toggles [drawLayoutBounds].
-  void toggleDrawLayoutBounds() => drawLayoutBounds = !drawLayoutBounds;
+  void toggleDrawLayoutBounds() {
+    drawLayoutBounds = !drawLayoutBounds!;
+
+    // Save user preference for [drawLayoutBounds] to storage.
+    setUserPreferences('drawLayoutBounds', drawLayoutBounds);
+  }
 
   /// Toggles [settingsPageListTileFadeEffect].
   void toggleSettingsPageListTileFadeEffect() =>
