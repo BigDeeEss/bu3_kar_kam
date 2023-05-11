@@ -122,7 +122,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     // Returns null only if [guestRect] is null.
     if (guestRect != null) {
       Alignment buttonAlignment =
-          GetItService.instance<AppData>().buttonAlignment;
+          GetItService.instance<AppData>().buttonAlignment!;
       Rect uRect = upperConstructionRect!;
       Rect lRect = lowerConstructionRect!;
 
@@ -366,7 +366,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     guestRect = watchOnly((AppData a) => a.buttonArrayRect!);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
-    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment);
+    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment!);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTilePadding =

@@ -11,7 +11,7 @@ abstract class AppData extends ChangeNotifier {
   double appBarHeightScaleFactor = 1.0;
 
   /// The anchor point for determining [Button] placement in [ButtonArray].
-  Alignment buttonAlignment = Alignment.topLeft;
+  Alignment? buttonAlignment;
 
   /// Represents the layout bounds for [ButtonArray].
   Rect? buttonArrayRect;

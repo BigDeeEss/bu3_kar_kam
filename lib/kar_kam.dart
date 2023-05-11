@@ -50,8 +50,8 @@ class KarKam extends StatelessWidget {
                 // UI is presented for each page.
                 // home: Placeholder(),
                 home: BasePage(
-                  // pageSpec: homePage,
-                  pageSpec: settingsPage,
+                  pageSpec: homePage,
+                  // pageSpec: settingsPage,
                   // pageSpec: filesPage,
                 ),
               );

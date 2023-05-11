@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Import project-specific files.
 import 'package:kar_kam/app_data.dart';
+import 'package:kar_kam/lib/alignment_extension.dart';
 import 'package:kar_kam/lib/axis_extension.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/lib/map_extension.dart';
@@ -73,6 +74,10 @@ class AppDataService extends AppData {
 
     // Update dependencies: [buttonArrayRect].
     buttonArrayRect = setButtonArrayRect();
+
+    // Save user preference for [buttonAxis] to storage.
+    // print(buttonAlignment!.toStringList());
+    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
   }
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
@@ -112,6 +117,15 @@ class AppDataService extends AppData {
     drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
     drawLayoutBounds = drawLayoutBounds ?? false;
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
+
+    print('1, $buttonAlignment');
+    print('2, ${userPreferences.getStringList('buttonAlignment')}');
+    buttonAlignment = alignmentFromStringList(userPreferences.getStringList('buttonAlignment'));
+    print('3, $buttonAlignment');
+    buttonAlignment = buttonAlignment ?? Alignment.topRight;
+    print('4, $buttonAlignment');
+    print('buttonAlignment!.toStringList() = ${buttonAlignment!.toStringList()}');
+    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
   }
 
   /// Initiates field variables; only called once after app start.
@@ -130,6 +144,8 @@ class AppDataService extends AppData {
 
   /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
+    print('buttonRadius = $buttonRadius');
+    print('buttonPaddingMainAxisAlt = $buttonPaddingMainAxisAlt');
     double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
     double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
@@ -187,12 +203,14 @@ class AppDataService extends AppData {
     // ToDo: Remove this wait function.
     // await Future.delayed(const Duration(seconds: 10));
 
-    if (value is double) {
+    if (value is bool) {
+      userPreferences.setBool(key, value);
+    } else if (value is double) {
       userPreferences.setDouble(key, value);
     } else if (value is String) {
       userPreferences.setString(key, value);
-    } else if (value is bool) {
-      userPreferences.setBool(key, value);
+    } else if (value is List<String>) {
+      userPreferences.setStringList(key, value);
     }
   }
 

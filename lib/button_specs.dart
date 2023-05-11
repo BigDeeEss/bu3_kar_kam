@@ -64,7 +64,7 @@ ButtonSpec settingsButton = ButtonSpec(
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) => BasePage(
-          pageSpec: filesPage,
+          pageSpec: settingsPage,
           // pageSpec: settingsPage,
         ),
       ),
