@@ -59,25 +59,12 @@ extension AlignmentExtension on Alignment {
   }
 
   // Converts this to List<String> of length 2.
-  List<String> toStringList() {
-    print(<int>[1, 2]);
-    print(<int>[1, 1]);
-    print({1, 1});
-    print('x = $x');
-    print('y = $y');
-    print({x, y});
-    print({x.toString(), y.toString()});
-    List<String> stringList = <String>[x.toString(), y.toString()];
-    assert(stringList.length == 2);
-    return stringList;
-  }
+  List<String> toStringList() => <String>[x.toString(), y.toString()];
 }
 
 Alignment? alignmentFromStringList(List<String>? stringList) {
-  print('alignmentFromStringList, stringList = $stringList');
   if (stringList is List<String>) {
     // Make sure [stringList] contains two entries.
-    print('stringList = $stringList');
     assert(stringList.length == 2);
 
     // Convert [stringList] to [double] and then to [Alignment] type.

@@ -45,6 +45,7 @@ class AppDataService extends AppData {
       'buttonAxis': (newValue) => toggleButtonAxis(),
       'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
+      'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
       'settingsPageListTileFadeEffect': (newValue) =>
           toggleSettingsPageListTileFadeEffect(),
     };
@@ -104,28 +105,31 @@ class AppDataService extends AppData {
   }
 
   Future<void> initialiseAppData() async {
+    // Get an instance of [SharedPreferences] for retrieving stored data.
     final userPreferences = await SharedPreferences.getInstance();
 
-    buttonRadius = userPreferences.getDouble('buttonRadius');
-    buttonRadius = buttonRadius ?? 28.0;
-    setUserPreferences('buttonRadius', buttonRadius);
+    // In what follows and in all cases: (i) attempt to retrieve stored value,
+    // (ii) apply default if necessary, and (iii) store new value.
+    buttonAlignment = alignmentFromStringList(
+        userPreferences.getStringList('buttonAlignment'));
+    buttonAlignment = buttonAlignment ?? Alignment.topRight;
+    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
 
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
     buttonAxis = buttonAxis ?? Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
 
+    buttonRadius = userPreferences.getDouble('buttonRadius');
+    buttonRadius = buttonRadius ?? 28.0;
+    setUserPreferences('buttonRadius', buttonRadius);
+
     drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
     drawLayoutBounds = drawLayoutBounds ?? false;
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
 
-    print('1, $buttonAlignment');
-    print('2, ${userPreferences.getStringList('buttonAlignment')}');
-    buttonAlignment = alignmentFromStringList(userPreferences.getStringList('buttonAlignment'));
-    print('3, $buttonAlignment');
-    buttonAlignment = buttonAlignment ?? Alignment.topRight;
-    print('4, $buttonAlignment');
-    print('buttonAlignment!.toStringList() = ${buttonAlignment!.toStringList()}');
-    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
+    drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
+    drawSlidingGuides = drawSlidingGuides ?? false;
+    setUserPreferences('drawSlidingGuides', drawSlidingGuides);
   }
 
   /// Initiates field variables; only called once after app start.
@@ -229,6 +233,14 @@ class AppDataService extends AppData {
 
     // Save user preference for [drawLayoutBounds] to storage.
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
+  }
+
+  /// Toggles [drawLayoutBounds].
+  void toggleDrawSlidingGuides() {
+    drawSlidingGuides = !drawSlidingGuides!;
+
+    // Save user preference for [drawLayoutBounds] to storage.
+    setUserPreferences('drawSlidingGuides', drawSlidingGuides);
   }
 
   /// Toggles [settingsPageListTileFadeEffect].

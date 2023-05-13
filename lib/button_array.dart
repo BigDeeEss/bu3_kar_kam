@@ -28,6 +28,9 @@ class ButtonArray extends StatelessWidget with GetItMixin {
     // Watch for changes to [AppData.buttonAxis] registered with [GetIt].
     Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis!);
 
+    // Watch for changes to [AppData.drawSlidingGuides] registered with [GetIt].
+    bool drawSlidingGuides = watchOnly((AppData a) => a.drawSlidingGuides!);
+
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     List<double> buttonCoordinates = watchOnly((AppData a) => a.buttonCoordinates)!;
 
@@ -80,7 +83,7 @@ class ButtonArray extends StatelessWidget with GetItMixin {
       }
     }
 
-    if (GetItService.instance<AppData>().drawSlidingGuides) {
+    if (drawSlidingGuides) {
       buttonList.add(SlidingGuides());
     }
 

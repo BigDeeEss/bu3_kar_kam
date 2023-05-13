@@ -178,7 +178,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         widget: const Text(
-          '8. Cycle ButtonAlignment!',
+          '8. Click to cycle ButtonAlignment!',
           maxLines: 1,
           softWrap: false,
         ),
@@ -202,7 +202,31 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         widget: const Text(
-          '9. Cycle ButtonRadius!',
+          '9. Click to cycle ButtonRadius!',
+          maxLines: 1,
+          softWrap: false,
+        ),
+      ),
+      SettingsPageListTile(
+        basePageViewRect:
+        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+        height: 75.0,
+        index: 10,
+        leading: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        onTap: (() {
+          // Toggle bool variable in AppModel that controls the fade effect.
+          GetItService.instance<AppData>()
+              .change(identifier: 'drawSlidingGuides');
+        }),
+        trailing: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        widget: const Text(
+          '10. Click to toggle drawSlidingGuides!',
           maxLines: 1,
           softWrap: false,
         ),
@@ -212,7 +236,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           basePageViewRect:
               basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
           height: 75.0,
-          index: index + 10,
+          index: index + 11,
           leading: Icon(
             Icons.favorite,
             size: settingsPageListTileIconSize,

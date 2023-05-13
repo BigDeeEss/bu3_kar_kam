@@ -17,7 +17,7 @@ abstract class AppData extends ChangeNotifier {
   Rect? buttonArrayRect;
 
   /// The axis for [ButtonArray].
-  Axis? buttonAxis = Axis.horizontal;
+  Axis? buttonAxis;
 
   /// Coordinates for [ButtonArray].
   List<double>? buttonCoordinates;
@@ -49,7 +49,7 @@ abstract class AppData extends ChangeNotifier {
   bool? drawLayoutBounds;
 
   /// Whether [ButtonArray] includes [SlidingGuides] or not.
-  bool drawSlidingGuides = true;
+  bool? drawSlidingGuides;
 
   /// Represents whether init has completed or not.
   bool initComplete = false;
