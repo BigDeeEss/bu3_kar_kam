@@ -130,6 +130,10 @@ class AppDataService extends AppData {
     drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
     drawSlidingGuides = drawSlidingGuides ?? false;
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
+
+    settingsPageListTileFadeEffect = userPreferences.getBool('settingsPageListTileFadeEffect');
+    settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? false;
+    setUserPreferences('settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
   }
 
   /// Initiates field variables; only called once after app start.
@@ -244,6 +248,11 @@ class AppDataService extends AppData {
   }
 
   /// Toggles [settingsPageListTileFadeEffect].
-  void toggleSettingsPageListTileFadeEffect() =>
-      settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect;
+  void toggleSettingsPageListTileFadeEffect() {
+    settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect!;
+
+    // Save user preference for [settingsPageListTileFadeEffect] to storage.
+    setUserPreferences(
+        'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
+  }
 }

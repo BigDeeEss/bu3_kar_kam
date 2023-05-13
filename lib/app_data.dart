@@ -55,7 +55,7 @@ abstract class AppData extends ChangeNotifier {
   bool initComplete = false;
 
   /// Whether fade effect in SettingsPageListTile is active or not.
-  bool settingsPageListTileFadeEffect = true;
+  bool? settingsPageListTileFadeEffect;
 
   /// Defines the icon radius in Button.
   double settingsPageListTileIconSize = 25.0;

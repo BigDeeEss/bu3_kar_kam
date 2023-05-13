@@ -459,7 +459,7 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
     // Watch for changes to [AppData.settingsPageListTileFadeEffect]
     // registered with [GetIt].
     bool settingsPageListTileFadeEffect =
-        watchOnly((AppData a) => a.settingsPageListTileFadeEffect);
+        watchOnly((AppData a) => a.settingsPageListTileFadeEffect!);
 
     // Watch for changes to [AppData.settingsPageListTileIconSize]
     // registered with [GetIt].
