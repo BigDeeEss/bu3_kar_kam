@@ -131,9 +131,17 @@ class AppDataService extends AppData {
     drawSlidingGuides = drawSlidingGuides ?? false;
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
 
-    settingsPageListTileFadeEffect = userPreferences.getBool('settingsPageListTileFadeEffect');
+    settingsPageListTileFadeEffect =
+        userPreferences.getBool('settingsPageListTileFadeEffect');
     settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? false;
-    setUserPreferences('settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
+    setUserPreferences(
+        'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
+
+    settingsPageListTileIconSize =
+        userPreferences.getDouble('settingsPageListTileIconSize');
+    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 25.0;
+    setUserPreferences(
+        'settingsPageListTileIconSize', settingsPageListTileIconSize);
   }
 
   /// Initiates field variables; only called once after app start.
@@ -181,8 +189,8 @@ class AppDataService extends AppData {
       rect = map[buttonAlignment]?.call(rect);
     } else {
       assert(
-      basePageViewRect != null,
-      'AppData, get buttonArrayRect...error, '
+          basePageViewRect != null,
+          'AppData, get buttonArrayRect...error, '
           'basePageViewRect is null.');
     }
 

@@ -58,7 +58,7 @@ abstract class AppData extends ChangeNotifier {
   bool? settingsPageListTileFadeEffect;
 
   /// Defines the icon radius in Button.
-  double settingsPageListTileIconSize = 25.0;
+  double? settingsPageListTileIconSize;
 
   /// Defines the padding between tiles.
   double settingsPageListTilePadding = 0.0;
