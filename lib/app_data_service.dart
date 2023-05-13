@@ -48,6 +48,8 @@ class AppDataService extends AppData {
       'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
       'settingsPageListTileFadeEffect': (newValue) =>
           toggleSettingsPageListTileFadeEffect(),
+      'settingsPageListTileIconSize': (newValue) =>
+          cycleSettingsPageListTileIconSize(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -104,6 +106,30 @@ class AppDataService extends AppData {
     setUserPreferences('buttonRadius', buttonRadius);
   }
 
+  /// Cycle and upload a new [settingsPageListTileIconSize]; update
+  /// dependencies.
+  void cycleSettingsPageListTileIconSize() {
+    // Define a map which can convert an integer to a double that represents
+    // a value for [settingsPageListTileIconSize].
+    Map<int, double> map = {
+      0: 25.0,
+      1: 30.0,
+      2: 35.0,
+      3: 40.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle
+    // [settingsPageListTileIconSize].
+    int settingsPageListTileIconSizeIntRepresentation =
+        map.inverse()[settingsPageListTileIconSize]!;
+    settingsPageListTileIconSize =
+        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length]!;
+
+    // Save user preference for [settingsPageListTileIconSize] to storage.
+    setUserPreferences(
+        'settingsPageListTileIconSize', settingsPageListTileIconSize);
+  }
+
   Future<void> initialiseAppData() async {
     // Get an instance of [SharedPreferences] for retrieving stored data.
     final userPreferences = await SharedPreferences.getInstance();
@@ -139,7 +165,7 @@ class AppDataService extends AppData {
 
     settingsPageListTileIconSize =
         userPreferences.getDouble('settingsPageListTileIconSize');
-    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 25.0;
+    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 28.0;
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
   }
@@ -160,8 +186,6 @@ class AppDataService extends AppData {
 
   /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
-    print('buttonRadius = $buttonRadius');
-    print('buttonPaddingMainAxisAlt = $buttonPaddingMainAxisAlt');
     double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
     double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
