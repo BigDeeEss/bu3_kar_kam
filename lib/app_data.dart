@@ -61,7 +61,7 @@ abstract class AppData extends ChangeNotifier {
   double? settingsPageListTileIconSize;
 
   /// Defines the padding between tiles.
-  double settingsPageListTilePadding = 0.0;
+  double? settingsPageListTilePadding;
 
   /// Defines the tile corner radius.
   double settingsPageListTileRadius = 15.0;

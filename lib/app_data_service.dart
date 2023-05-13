@@ -50,6 +50,8 @@ class AppDataService extends AppData {
           toggleSettingsPageListTileFadeEffect(),
       'settingsPageListTileIconSize': (newValue) =>
           cycleSettingsPageListTileIconSize(),
+      'settingsPageListTilePadding': (newValue) =>
+          cycleSettingsPageListTilePadding(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -130,6 +132,30 @@ class AppDataService extends AppData {
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
   }
 
+  /// Cycle and upload a new [settingsPageListTileIconSize]; update
+  /// dependencies.
+  void cycleSettingsPageListTilePadding() {
+    // Define a map which can convert an integer to a double that represents
+    // a value for [settingsPageListTileIconSize].
+    Map<int, double> map = {
+      0: 0.0,
+      1: 2.0,
+      2: 4.0,
+      3: 6.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle
+    // [settingsPageListTileIconSize].
+    int settingsPageListTilePaddingIntRepresentation =
+        map.inverse()[settingsPageListTilePadding]!;
+    settingsPageListTilePadding =
+        map[(settingsPageListTilePaddingIntRepresentation + 1) % map.length]!;
+
+    // Save user preference for [settingsPageListTileIconSize] to storage.
+    setUserPreferences(
+        'settingsPageListTilePadding', settingsPageListTilePadding);
+  }
+
   Future<void> initialiseAppData() async {
     // Get an instance of [SharedPreferences] for retrieving stored data.
     final userPreferences = await SharedPreferences.getInstance();
@@ -168,6 +194,12 @@ class AppDataService extends AppData {
     settingsPageListTileIconSize = settingsPageListTileIconSize ?? 28.0;
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
+
+    settingsPageListTilePadding =
+        userPreferences.getDouble('settingsPageListTilePadding');
+    settingsPageListTilePadding = settingsPageListTilePadding ?? 0.0;
+    setUserPreferences(
+        'settingsPageListTilePadding', settingsPageListTilePadding);
   }
 
   /// Initiates field variables; only called once after app start.

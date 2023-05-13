@@ -70,7 +70,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
     // Generate a temporary list of tiles to build.
     // ToDo: replace temporary list with final version.
     List<Widget> tileList = [
-      ...List<Widget>.generate(4, (int index) {
+      ...List<Widget>.generate(3, (int index) {
         return SettingsPageListTile(
           basePageViewRect:
               basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
@@ -87,6 +87,30 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           ),
         );
       }),
+      SettingsPageListTile(
+        basePageViewRect:
+        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+        height: 75.0,
+        index: 3,
+        leading: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        onTap: (() {
+          // Toggle bool variable in AppModel that controls the fade effect.
+          GetItService.instance<AppData>()
+              .change(identifier: 'settingsPageListTilePadding');
+        }),
+        trailing: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        widget: const Text(
+          '3. Click to cycle settingsPageListTilePadding!',
+          maxLines: 1,
+          softWrap: false,
+        ),
+      ),
       SettingsPageListTile(
         basePageViewRect:
         basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,

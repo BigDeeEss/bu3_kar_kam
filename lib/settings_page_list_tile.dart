@@ -37,7 +37,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     }
     double buttonRadius = GetItService.instance<AppData>().buttonRadius!;
     double settingsPageListTilePadding =
-        GetItService.instance<AppData>().settingsPageListTilePadding;
+        GetItService.instance<AppData>().settingsPageListTilePadding!;
     double settingsPageListTileRadius =
         GetItService.instance<AppData>().settingsPageListTileRadius;
 
@@ -369,7 +369,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTilePadding =
-        watchOnly((AppData a) => a.settingsPageListTilePadding);
+        watchOnly((AppData a) => a.settingsPageListTilePadding!);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTileRadius =
