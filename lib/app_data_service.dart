@@ -123,9 +123,9 @@ class AppDataService extends AppData {
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
     int settingsPageListTileIconSizeIntRepresentation =
-        map.inverse()[settingsPageListTileIconSize]!;
+        map.inverse()[settingsPageListTileIconSize];
     settingsPageListTileIconSize =
-        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length]!;
+        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length];
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
