@@ -48,10 +48,26 @@ abstract class AppData extends ChangeNotifier {
   /// Whether [BoxedContainer] draws bounding boxes or not.
   bool drawLayoutBounds = true;
 
+  /// Whether [ButtonArray] includes [SlidingGuides] or not.
+  bool drawSlidingGuides = true;
+
   /// Represents whether init has completed or not.
   bool initComplete = false;
 
-  // ToDo: write doc comment for change.
+  /// Whether fade effect in SettingsPageListTile is active or not.
+  bool settingsPageListTileFadeEffect = true;
+
+  /// Defines the icon radius in Button.
+  double settingsPageListTileIconSize = 25.0;
+
+  /// Defines the padding between tiles.
+  double settingsPageListTilePadding = 0.0;
+
+  /// Defines the tile corner radius.
+  double settingsPageListTileRadius = 15.0;
+
+  /// Updates [this] using [identifier] to determine which field to change and
+  /// calling the appropriate change function using the unspecified [newValue].
   void change({
     required String identifier,
     var newValue,
@@ -60,11 +76,4 @@ abstract class AppData extends ChangeNotifier {
 
   /// Initiates field variables; only called once after app start.
   void init();
-
-  // Calculates the bounding box for [ButtonArray].
-  Rect setButtonArrayRect();
-
-  /// Calculates the list of coordinates for placing [Button] components
-  /// in [ButtonArray].
-  List<double> setButtonCoordinates();
 }
