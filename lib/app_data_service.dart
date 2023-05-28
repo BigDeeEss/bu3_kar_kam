@@ -63,10 +63,8 @@ class AppDataService extends AppData {
     // Calculate and upload [buttonCoordinates].
     buttonCoordinates = setButtonCoordinates();
 
-    //  Register that init has completed.
+    // Register that init has completed.
     initComplete = true;
-    print('AppDataService, init...buttonArrayRect = $buttonArrayRect');
-    print('AppDataService, init...buttonCoordinates = $buttonCoordinates');
   }
 
   /// Calculates the list of coordinates for placing [Button] components
