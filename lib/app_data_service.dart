@@ -200,10 +200,6 @@ class AppDataService extends AppData {
   void toggleButtonAxis() {
     buttonAxis = flipAxis(buttonAxis!);
     buttonArrayRect = setButtonArrayRect();
-    print('buttonAxis =  $buttonAxis');
-    print('buttonAxis.toString() =  ${buttonAxis.toString()}');
-    print(buttonAxis.runtimeType);
-    print(buttonAxis.toString().runtimeType);
 
     // Save user preference for [buttonAxis] to storage.
     setUserPreferences('buttonAxis', buttonAxis.toString());
