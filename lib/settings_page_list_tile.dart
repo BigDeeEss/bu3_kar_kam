@@ -39,7 +39,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     double settingsPageListTilePadding =
         GetItService.instance<AppData>().settingsPageListTilePadding!;
     double settingsPageListTileRadius =
-        GetItService.instance<AppData>().settingsPageListTileRadius;
+        GetItService.instance<AppData>().settingsPageListTileRadius!;
 
     // Create a [Rect] representation of [SettingsPageListTile] at the
     // correct initial location.
@@ -373,7 +373,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTileRadius =
-        watchOnly((AppData a) => a.settingsPageListTileRadius);
+        watchOnly((AppData a) => a.settingsPageListTileRadius)!;
 
     // Helps define the sliding motion of [SettingsPageListTile].
     centreRect = centreConstructionRect;
@@ -469,7 +469,7 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
     // Watch for changes to [AppData.settingsPageListTileIconSize]
     // registered with [GetIt].
     double settingsPageListTileRadius =
-        watchOnly((AppData a) => a.settingsPageListTileRadius);
+        watchOnly((AppData a) => a.settingsPageListTileRadius)!;
 
     return settingsPageListTileFadeEffect
         ? Positioned(

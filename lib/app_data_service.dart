@@ -200,6 +200,10 @@ class AppDataService extends AppData {
     settingsPageListTilePadding = settingsPageListTilePadding ?? 0.0;
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
+
+    // settingsPageListTileRadius = userPreferences.getDouble('settingsPageListTileRadius');
+    settingsPageListTileRadius = settingsPageListTileRadius ?? 15.0;
+    // setUserPreferences('settingsPageListTileRadius', settingsPageListTileRadius);
   }
 
   /// Initiates field variables; only called once after app start.
