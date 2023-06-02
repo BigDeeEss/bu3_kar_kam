@@ -70,7 +70,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
     // Generate a temporary list of tiles to build.
     // ToDo: replace temporary list with final version.
     List<Widget> tileList = [
-      ...List<Widget>.generate(3, (int index) {
+      ...List<Widget>.generate(2, (int index) {
         return SettingsPageListTile(
           basePageViewRect:
               basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
@@ -91,13 +91,37 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
         basePageViewRect:
         basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
+        index: 2,
+        leading: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        onTap: (() {
+          // Cycle settingsPageListTileRadius variable in AppModel.
+          GetItService.instance<AppData>()
+              .change(identifier: 'settingsPageListTileRadius');
+        }),
+        trailing: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        widget: const Text(
+          '2. Click to cycle settingsPageListTileRadius!',
+          maxLines: 1,
+          softWrap: false,
+        ),
+      ),
+      SettingsPageListTile(
+        basePageViewRect:
+        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+        height: 75.0,
         index: 3,
         leading: Icon(
           Icons.circle_notifications_outlined,
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Cycle settingsPageListTilePadding variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTilePadding');
         }),
@@ -121,7 +145,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Cycle settingsPageListTileIconSize variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTileIconSize');
         }),
@@ -145,7 +169,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: () {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Toggle drawLayoutBounds variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'drawLayoutBounds');
         },
@@ -169,7 +193,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Toggle settingsPageListTileFadeEffect variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTileFadeEffect');
         }),
@@ -193,7 +217,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Toggle buttonAxis variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'buttonAxis');
         }),
@@ -217,7 +241,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Cycle buttonAlignment variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'buttonAlignment');
         }),
@@ -241,7 +265,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Cycle buttonRadius variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'buttonRadius');
         }),
@@ -265,7 +289,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle bool variable in AppModel that controls the fade effect.
+          // Toggle drawSlidingGuides variable in AppModel.
           GetItService.instance<AppData>()
               .change(identifier: 'drawSlidingGuides');
         }),
@@ -290,7 +314,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
             size: settingsPageListTileIconSize,
           ),
           widget: Text(
-            '$index. Some very, very, very, very, very, very, very, very, very, very, very, verylongtext!',
+            '${index + 11}. Some very, very, very, very, very, very, very, very, very, very, very, verylongtext!',
             maxLines: 1,
             softWrap: false,
           ),

@@ -54,6 +54,8 @@ abstract class AppData extends ChangeNotifier {
   /// Represents whether init has completed or not.
   bool initComplete = false;
 
+  double? settingsPageListTileCornerRadius;
+
   /// Whether fade effect in SettingsPageListTile is active or not.
   bool? settingsPageListTileFadeEffect;
 

@@ -52,6 +52,8 @@ class AppDataService extends AppData {
           cycleSettingsPageListTileIconSize(),
       'settingsPageListTilePadding': (newValue) =>
           cycleSettingsPageListTilePadding(),
+      'settingsPageListTileRadius': (newValue) =>
+          cycleSettingsPageListTileRadius(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -156,6 +158,30 @@ class AppDataService extends AppData {
         'settingsPageListTilePadding', settingsPageListTilePadding);
   }
 
+  /// Cycle and upload a new [settingsPageListTileRadius]; update dependencies.
+  void cycleSettingsPageListTileRadius() {
+    // Define a map which can convert an integer to a double that represents
+    // a value for [settingsPageListTileIconSize].
+    Map<int, double> map = {
+      0: 0.0,
+      1: 5.0,
+      2: 10.0,
+      3: 15.0,
+      4: 20.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle
+    // [settingsPageListTileIconSize].
+    int cycleSettingsPageListTileRadiusIntRepresentation =
+        map.inverse()[settingsPageListTileRadius]!;
+    settingsPageListTileRadius = map[
+        (cycleSettingsPageListTileRadiusIntRepresentation + 1) % map.length]!;
+
+    // Save user preference for [settingsPageListTileIconSize] to storage.
+    setUserPreferences(
+        'settingsPageListTileRadius', settingsPageListTileRadius);
+    }
+
   Future<void> initialiseAppData() async {
     // Get an instance of [SharedPreferences] for retrieving stored data.
     final userPreferences = await SharedPreferences.getInstance();
@@ -164,7 +190,7 @@ class AppDataService extends AppData {
     // (ii) apply default if necessary, and (iii) store new value.
     buttonAlignment = alignmentFromStringList(
         userPreferences.getStringList('buttonAlignment'));
-    buttonAlignment = buttonAlignment ?? Alignment.topRight;
+    buttonAlignment = buttonAlignment ?? Alignment.topLeft;
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
 
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
@@ -176,16 +202,16 @@ class AppDataService extends AppData {
     setUserPreferences('buttonRadius', buttonRadius);
 
     drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
-    drawLayoutBounds = drawLayoutBounds ?? false;
+    drawLayoutBounds = drawLayoutBounds ?? true;
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
 
     drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
-    drawSlidingGuides = drawSlidingGuides ?? false;
+    drawSlidingGuides = drawSlidingGuides ?? true;
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
 
     settingsPageListTileFadeEffect =
         userPreferences.getBool('settingsPageListTileFadeEffect');
-    settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? false;
+    settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? true;
     setUserPreferences(
         'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
 
@@ -201,9 +227,13 @@ class AppDataService extends AppData {
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
 
-    // settingsPageListTileRadius = userPreferences.getDouble('settingsPageListTileRadius');
+    print('1. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
+    settingsPageListTileRadius = userPreferences.getDouble('settingsPageListTileRadius');
+    print('2. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
     settingsPageListTileRadius = settingsPageListTileRadius ?? 15.0;
-    // setUserPreferences('settingsPageListTileRadius', settingsPageListTileRadius);
+    print('3. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
+    setUserPreferences('settingsPageListTileRadius', settingsPageListTileRadius);
+    print('4. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
   }
 
   /// Initiates field variables; only called once after app start.
