@@ -36,10 +36,10 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
       assert(rect is Rect, 'SettingsPageListTile...error...guestRect is null');
     }
     double buttonRadius = GetItService.instance<AppData>().buttonRadius!;
-    double settingsPageListTilePadding =
-        GetItService.instance<AppData>().settingsPageListTilePadding!;
-    double settingsPageListTileRadius =
-        GetItService.instance<AppData>().settingsPageListTileRadius!;
+    // double settingsPageListTilePadding =
+    //     GetItService.instance<AppData>().settingsPageListTilePadding!;
+    // double settingsPageListTileRadius =
+    //     GetItService.instance<AppData>().settingsPageListTileRadius!;
 
     // Create a [Rect] representation of [SettingsPageListTile] at the
     // correct initial location.
@@ -49,7 +49,8 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
         .translate(0, height * index);
 
     // The corner radius associated with [SettingsPageListTile].
-    cornerRadius = settingsPageListTileRadius + settingsPageListTilePadding;
+    // cornerRadius =
+    //     GetItService.instance<AppData>().settingsPageListTileCornerRadius!;
 
     // Calculate [xPMax] from [basePageViewRect].
     xPMax = basePageViewRect.width - 3 * buttonRadius;
@@ -96,7 +97,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
 
   /// A combined corner radius that includes the tile corner radius
   /// and any padding applied to separate adjacent tiles.
-  double cornerRadius = 0.0;
+  // double cornerRadius = 0.0;
 
   /// The radius associated with the curved path segment that defines
   /// the sliding motion of [SettingsPageListTile].
@@ -208,6 +209,11 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     // it has the correct current [y]-value for [scrollPosition].
     Rect rect = hostRect.shift(Offset(0.0, -scrollPosition));
 
+    // Get [settingsPageListTileCornerRadius] from the instance of [AppData]
+    // registered with GetIt.
+    double cornerRadius =
+        GetItService.instance<AppData>().settingsPageListTileCornerRadius!;
+
     // Determine which method to use for calculating [deltaX].
     if (guestRect != null) {
       if (centreRect!.inflateHeight(-cornerRadius).overlaps(rect)) {
@@ -283,6 +289,11 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     assert(
         i.abs() == 1, 'SettingsPageListTile, [getSinTheta]: invalid i value.');
 
+    // Get [settingsPageListTileCornerRadius] from the instance of [AppData]
+    // registered with GetIt.
+    double cornerRadius =
+        GetItService.instance<AppData>().settingsPageListTileCornerRadius!;
+
     double sinTheta = (y + i * cornerRadius) / (pathRadius + i * cornerRadius);
 
     if (sinTheta.abs() <= 1.0) {
@@ -321,6 +332,11 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     //    (x - r)^2 + (y - 0)^2 = r^2.
     double yCrit = math.sqrt(
         pathRadius * pathRadius - (xCrit - pathRadius) * (xCrit - pathRadius));
+
+    // Get [settingsPageListTileCornerRadius] from the instance of [AppData]
+    // registered with GetIt.
+    double cornerRadius =
+        GetItService.instance<AppData>().settingsPageListTileCornerRadius!;
 
     double outerCosThetaCrit = getOuterCosTheta(yCrit)!;
     double outerSinThetaCrit = getOuterSinTheta(yCrit)!;
@@ -426,7 +442,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
                               child: widget ?? Container(),
                             ),
                           ),
-                          _FadingOverlay(height: height),
+                          _FadingOverlay(height: height - 2 * settingsPageListTilePadding),
                         ],
                       ),
                     ),
@@ -456,6 +472,9 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
+    // Watch for changes to [AppData.drawLayoutBounds] registered with GetIt.
+    bool? drawLayoutBounds = watchOnly((AppData a) => a.drawLayoutBounds);
+
     // Watch for changes to [AppData.settingsPageListTileFadeEffect]
     // registered with [GetIt].
     bool settingsPageListTileFadeEffect =
@@ -478,7 +497,16 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
               width: settingsPageListTileIconSize,
               height: height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(settingsPageListTileRadius),
+                border: drawLayoutBounds!
+                    ? Border.all(
+                        width: 0.1,
+                        color: Colors.black,
+                      )
+                    : null,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(settingsPageListTileRadius),
+                ),
+                // borderRadius: Radius.circular(settingsPageListTileRadius),
                 // https://stackoverflow.com/questions/62782165/how-to-create-this-linear-fading-opacity-effect-in-flutter-for-android
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
@@ -490,9 +518,9 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
                   ],
                   colors: [
                     //  create 2 white colors, one transparent
-                    Colors.pink[200]!.withOpacity(0.0),
-                    Colors.pink[200]!.withOpacity(1.0),
-                    Colors.pink[200]!.withOpacity(1.0),
+                    Colors.blue[200]!.withOpacity(1.0),
+                    Colors.blue[200]!.withOpacity(1.0),
+                    Colors.blue[200]!.withOpacity(1.0),
                   ],
                 ),
               ),

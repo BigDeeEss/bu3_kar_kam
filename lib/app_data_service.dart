@@ -46,6 +46,8 @@ class AppDataService extends AppData {
       'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
+      'settingsPageListTileCornerRadius': (double newValue) =>
+          settingsPageListTileCornerRadius = newValue,
       'settingsPageListTileFadeEffect': (newValue) =>
           toggleSettingsPageListTileFadeEffect(),
       'settingsPageListTileIconSize': (newValue) =>
@@ -156,6 +158,12 @@ class AppDataService extends AppData {
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
+
+    double? settingsPageListTileRadius =
+    GetItService.instance<AppData>().settingsPageListTileRadius!;
+
+    settingsPageListTileCornerRadius =
+        settingsPageListTilePadding! + settingsPageListTileRadius!;
   }
 
   /// Cycle and upload a new [settingsPageListTileRadius]; update dependencies.
@@ -180,7 +188,13 @@ class AppDataService extends AppData {
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
         'settingsPageListTileRadius', settingsPageListTileRadius);
-    }
+
+    double? settingsPageListTilePadding =
+        GetItService.instance<AppData>().settingsPageListTilePadding!;
+
+    settingsPageListTileCornerRadius =
+        settingsPageListTilePadding! + settingsPageListTileRadius!;
+  }
 
   Future<void> initialiseAppData() async {
     // Get an instance of [SharedPreferences] for retrieving stored data.
@@ -234,6 +248,11 @@ class AppDataService extends AppData {
     print('3. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
     setUserPreferences('settingsPageListTileRadius', settingsPageListTileRadius);
     print('4. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
+
+    // Must be placed after retrieval of [settingsPageListTilePadding] and
+    // [settingsPageListTileRadius].
+    settingsPageListTileCornerRadius =
+        settingsPageListTilePadding! + settingsPageListTileRadius!;
   }
 
   /// Initiates field variables; only called once after app start.

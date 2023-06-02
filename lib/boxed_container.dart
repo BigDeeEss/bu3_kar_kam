@@ -51,7 +51,7 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
-    // Watch for changes to [Settings.drawLayoutBounds] registered with GetIt.
+    // Watch for changes to [AppData.drawLayoutBounds] registered with GetIt.
     bool? drawLayoutBounds = watchOnly((AppData a) => a.drawLayoutBounds);
 
     return Container(
