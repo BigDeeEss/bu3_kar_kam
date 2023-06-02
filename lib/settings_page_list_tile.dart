@@ -497,12 +497,6 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
               width: settingsPageListTileIconSize,
               height: height,
               decoration: BoxDecoration(
-                border: drawLayoutBounds!
-                    ? Border.all(
-                        width: 0.1,
-                        color: Colors.black,
-                      )
-                    : null,
                 borderRadius: BorderRadius.all(
                   Radius.circular(settingsPageListTileRadius),
                 ),
@@ -518,9 +512,9 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
                   ],
                   colors: [
                     //  create 2 white colors, one transparent
-                    Colors.blue[200]!.withOpacity(1.0),
-                    Colors.blue[200]!.withOpacity(1.0),
-                    Colors.blue[200]!.withOpacity(1.0),
+                    Colors.pink[200]!.withOpacity(0.0),
+                    Colors.pink[200]!.withOpacity(1.0),
+                    Colors.pink[200]!.withOpacity(1.0),
                   ],
                 ),
               ),
