@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // Import project-specific files.
+import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/lib/data_store.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
-import 'package:kar_kam/app_data.dart';
 
 /// Is a wrapper for an instance of [DataStore] and [_BasePageView].
 ///
@@ -24,6 +24,7 @@ class BasePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     GlobalKey basePageViewKey = GlobalKey();
 
+    // Use [DataStore] so that [_BasePageView] can use [basePageViewKey].
     return DataStore<GlobalKey>(
       key: const ValueKey('basePageViewKey'),
       data: basePageViewKey,
@@ -89,8 +90,9 @@ class _BasePageViewState extends State<_BasePageView> {
       );
 
       // Initiate instance of [AppData] registered with GetIt.
-      // [AppData.init] completes without doing anything if
-      // [AppData.basePageViewRect] = true.
+      //
+      // [AppData.initialise] completes without doing anything if
+      // [AppData.initialiseComplete] = true.
       GetItService.instance<AppData>().initialise();
 
       // Rebuild widget with [pageSpec.contents] instead of [Container].
@@ -114,7 +116,7 @@ class _BasePageViewState extends State<_BasePageView> {
   }
 }
 
-/// Tests whether [basePageViewRect] can be calculated using the
+/// Tests whether [basePageViewRect] can be calculated.
 class BasePageViewTest extends StatelessWidget {
   const BasePageViewTest({Key? key}) : super(key: key);
 

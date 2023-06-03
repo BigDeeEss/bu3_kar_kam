@@ -22,10 +22,10 @@ abstract class AppData extends ChangeNotifier {
   /// Coordinates for [ButtonArray].
   List<double>? buttonCoordinates;
 
-  /// Main axis padding for in between buttons in [ButtonArray].
+  /// Main axis padding between buttons in [ButtonArray].
   double buttonPaddingMainAxis = 15.0;
 
-  /// An alternative padding for in between buttons in [ButtonArray].
+  /// An alternative padding between buttons in [ButtonArray].
   double buttonPaddingMainAxisAlt = 12.5;
 
   /// Defines the padding surrounding each button.
@@ -51,21 +51,22 @@ abstract class AppData extends ChangeNotifier {
   /// Whether [ButtonArray] includes [SlidingGuides] or not.
   bool? drawSlidingGuides;
 
-  /// Represents whether init has completed or not.
-  bool initComplete = false;
+  /// Represents whether [initialise] has completed or not.
+  bool initialiseComplete = false;
 
+  /// The sum of [settingsPageListTilePadding] and [settingsPageListTileRadius].
   double? settingsPageListTileCornerRadius;
 
-  /// Whether fade effect in SettingsPageListTile is active or not.
+  /// Whether fade effect in [SettingsPageListTile] is active or not.
   bool? settingsPageListTileFadeEffect;
 
-  /// Defines the icon radius in Button.
+  /// Defines [SettingsPageListTile] icon radius (used in [Button]).
   double? settingsPageListTileIconSize;
 
-  /// Defines the padding between tiles.
+  /// Defines the padding between adjacent instances of [SettingsPageListTile].
   double? settingsPageListTilePadding;
 
-  /// Defines the tile corner radius.
+  /// Defines [SettingsPageListTile] corner radius.
   double? settingsPageListTileRadius;
 
   /// Updates [this] using [identifier] to determine which field to change and

@@ -50,12 +50,12 @@ class ButtonArray extends StatelessWidget with GetItMixin {
 
       // Treat horizontal and vertical axes differently.
       if (buttonAxis == Axis.horizontal) {
-        // The top and bottom inputs to [Positioned] must be 0.0 or null,
-        // depending on whether the selected alignment is top or bottom.
+        // The top and bottom inputs to [Positioned] must be 0.0 and null, if
+        // the selected alignment is top, and reversed if alignment is bottom.
         //
         // The left and right inputs to [Positioned] must be non-zero
-        // coordinates or null, depending on whether the selected alignment
-        // is left or right.
+        // coordinates or null, if the selected alignment is left, and
+        // reversed if alignment is right.
         buttonList.add(Positioned(
           top: (buttonAlignment.y < 0) ? 0 : null,
           bottom: (buttonAlignment.y > 0) ? 0 : null,
@@ -67,12 +67,12 @@ class ButtonArray extends StatelessWidget with GetItMixin {
 
       // Treat horizontal and vertical axes differently.
       if (buttonAxis == Axis.vertical) {
-        // The left and right inputs to [Positioned] must be 0.0 or null,
-        // depending on whether the selected alignment is left or right.
+        // The left and right inputs to [Positioned] must be 0.0 or null, if
+        // the selected alignment is left, and reversed if alignment is right.
         //
         // The top and bottom inputs to [Positioned] must be non-zero
-        // coordinates or null, depending on whether the selected alignment
-        // is top or bottom.
+        // coordinates or null, if the selected alignment is top, and
+        // reversed if alignment is bottom.
         buttonList.add(Positioned(
           top: (buttonAlignment.y < 0) ? buttonCoordinates[i] : null,
           bottom: (buttonAlignment.y > 0) ? buttonCoordinates[i] : null,
@@ -86,7 +86,6 @@ class ButtonArray extends StatelessWidget with GetItMixin {
     if (drawSlidingGuides) {
       buttonList.add(SlidingGuides());
     }
-
 
     // Need to return a single Widget and so return an instance of [Stack]
     // with its children defined to be a list of buttons.

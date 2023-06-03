@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 // Import project-specific files.
+import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/base_page_view.dart';
 import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
 import 'package:kar_kam/page_specs.dart';
-import 'package:kar_kam/app_data.dart';
 
 /// Implements a generic page layout design.
 ///
@@ -45,13 +45,7 @@ class _BasePageState extends State<BasePage> with GetItStateMixin {
     //    (ii) with BottomAppBar passed using [appBarRect.height].
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Rect? rect = appBarKey.globalPaintBounds;
-
-      // Check rect is not null and call setState.
-      assert(
-        rect != null,
-        '_BasePageState, initState...error, rect is null...',
-      );
-      setState(() {appBarRect = rect;});
+      setState(() {appBarRect = rect!;});
     });
 
     super.initState();

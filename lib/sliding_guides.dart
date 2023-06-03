@@ -1,8 +1,8 @@
 // Import flutter packages.
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/app_data.dart';
+import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/settings_page_list_tile.dart';
 
 /// Implements sliding guides - guide circles which indicate the path followed
@@ -12,19 +12,16 @@ class SlidingGuides extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
-    // Get [AppData] registered with [GetIt].
-    // AppData appData = GetItService.instance<AppData>();
-
     // Watch for changes to [AppData.buttonAxis] registered with GetIt.
-    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis!);
+    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis)!;
 
     // Watch for changes to [AppData.buttonAlignment] registered with GetIt.
-    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment!);
+    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment)!;
 
     // Watch for changes to [AppData.buttonRadius] registered with GetIt.
-    double buttonRadius = watchOnly((AppData a) => a.buttonRadius!);
+    double buttonRadius = watchOnly((AppData a) => a.buttonRadius)!;
 
-    // Watch for changes to [AppData.buttonRadius] registered with GetIt.
+    // Watch for changes to [AppData.buttonPaddingMainAxis] registered with GetIt.
     double buttonPaddingMainAxis = watchOnly((AppData a) => a.buttonPaddingMainAxis);
 
     return Stack(

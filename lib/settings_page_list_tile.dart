@@ -48,15 +48,11 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
         .moveTopLeftTo(basePageViewRect.topLeft)
         .translate(0, height * index);
 
-    // The corner radius associated with [SettingsPageListTile].
-    // cornerRadius =
-    //     GetItService.instance<AppData>().settingsPageListTileCornerRadius!;
-
     // Calculate [xPMax] from [basePageViewRect].
     xPMax = basePageViewRect.width - 3 * buttonRadius;
   }
 
-  /// The visible area on screen that contains [SettingsPageContents].
+  /// The available screen dimensions.
   final Rect basePageViewRect;
 
   /// The on-screen [Rect] that [SettingsPageListTile] avoids when scrolling.
@@ -95,12 +91,8 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
   /// [guestRect.bottomRight] and has the same width as [guestRect].
   late Rect? lowerRect;
 
-  /// A combined corner radius that includes the tile corner radius
-  /// and any padding applied to separate adjacent tiles.
-  // double cornerRadius = 0.0;
-
-  /// The radius associated with the curved path segment that defines
-  /// the sliding motion of [SettingsPageListTile].
+  /// The radius that characterises the curved path segment that tiles follow
+  /// as they pass around [ButtonArray].
   double pathRadius = 0.0;
 
   // A temporary double for determining the slope of the connecting
@@ -472,9 +464,6 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
-    // Watch for changes to [AppData.drawLayoutBounds] registered with GetIt.
-    bool? drawLayoutBounds = watchOnly((AppData a) => a.drawLayoutBounds);
-
     // Watch for changes to [AppData.settingsPageListTileFadeEffect]
     // registered with [GetIt].
     bool settingsPageListTileFadeEffect =

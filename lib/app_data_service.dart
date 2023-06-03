@@ -14,14 +14,14 @@ import 'package:kar_kam/lib/rect_extension.dart';
 class AppDataService extends AppData {
   AppDataService() {
     initialiseAppData();
-    // userPreferences = await SharedPreferences.getInstance();
     /// The loading of app data from file will require some async
     /// initialization, so simulate it here with a Future.delayed function.
+    // ToDo: delete instance of Future.delayed.
     Future.delayed(const Duration(seconds: 1))
         .then((_) => GetItService.signalReady<AppDataService>(this));
 
-    /// Register that [init] has not yet completed.
-    initComplete = false;
+    /// Register that [initialise] method has not yet completed.
+    initialiseComplete = false;
   }
 
   /// Updates [this] using [identifier] to determine which field to change and
@@ -69,8 +69,7 @@ class AppDataService extends AppData {
 
   /// Cycle and upload a new [buttonAlignment]; update dependencies.
   void cycleButtonAlignment() {
-    // Define a map which can convert [buttonAlignment] to another
-    // [Alignment] type.
+    // Define a map to convert [buttonAlignment] to another [Alignment] type.
     Map<Alignment, Alignment> map = {
       Alignment.topLeft: Alignment.topRight,
       Alignment.topRight: Alignment.bottomRight,
@@ -84,15 +83,13 @@ class AppDataService extends AppData {
     // Update dependencies: [buttonArrayRect].
     buttonArrayRect = setButtonArrayRect();
 
-    // Save user preference for [buttonAxis] to storage.
-    // print(buttonAlignment!.toStringList());
+    // Save user preference for [buttonAlignment] to storage.
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
   }
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
   void cycleButtonRadius() {
-    // Define a map which can convert an integer to a double that represents
-    // a value for [buttonRadius].
+    // Define a map to convert an integer to a value for [buttonRadius].
     Map<int, double> map = {
       0: 28.0,
       1: 32.0,
@@ -112,11 +109,10 @@ class AppDataService extends AppData {
     setUserPreferences('buttonRadius', buttonRadius);
   }
 
-  /// Cycle and upload a new [settingsPageListTileIconSize]; update
-  /// dependencies.
+  /// Cycle and upload [settingsPageListTileIconSize]; update dependencies.
   void cycleSettingsPageListTileIconSize() {
-    // Define a map which can convert an integer to a double that represents
-    // a value for [settingsPageListTileIconSize].
+    // Define a map to convert an integer to a value for
+    // [settingsPageListTileIconSize].
     Map<int, double> map = {
       0: 25.0,
       1: 30.0,
@@ -136,11 +132,10 @@ class AppDataService extends AppData {
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
   }
 
-  /// Cycle and upload a new [settingsPageListTileIconSize]; update
-  /// dependencies.
+  /// Cycle and upload [settingsPageListTilePadding]; update dependencies.
   void cycleSettingsPageListTilePadding() {
-    // Define a map which can convert an integer to a double that represents
-    // a value for [settingsPageListTileIconSize].
+    // Define a map to convert an integer to a value for
+    // [settingsPageListTilePadding].
     Map<int, double> map = {
       0: 0.0,
       1: 2.0,
@@ -149,7 +144,7 @@ class AppDataService extends AppData {
     };
 
     // Use [map], its inverse and the modulus operator to cycle
-    // [settingsPageListTileIconSize].
+    // [settingsPageListTilePadding].
     int settingsPageListTilePaddingIntRepresentation =
         map.inverse()[settingsPageListTilePadding]!;
     settingsPageListTilePadding =
@@ -159,17 +154,17 @@ class AppDataService extends AppData {
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
 
+    // Update [settingsPageListTileCornerRadius].
     double? settingsPageListTileRadius =
-    GetItService.instance<AppData>().settingsPageListTileRadius!;
-
+        GetItService.instance<AppData>().settingsPageListTileRadius!;
     settingsPageListTileCornerRadius =
         settingsPageListTilePadding! + settingsPageListTileRadius!;
   }
 
-  /// Cycle and upload a new [settingsPageListTileRadius]; update dependencies.
+  /// Cycle and upload [settingsPageListTileRadius]; update dependencies.
   void cycleSettingsPageListTileRadius() {
-    // Define a map which can convert an integer to a double that represents
-    // a value for [settingsPageListTileIconSize].
+    // Define a map to convert an integer to a value for
+    // [settingsPageListTileRadius].
     Map<int, double> map = {
       0: 0.0,
       1: 5.0,
@@ -179,21 +174,21 @@ class AppDataService extends AppData {
     };
 
     // Use [map], its inverse and the modulus operator to cycle
-    // [settingsPageListTileIconSize].
+    // [settingsPageListTileRadius].
     int cycleSettingsPageListTileRadiusIntRepresentation =
         map.inverse()[settingsPageListTileRadius]!;
     settingsPageListTileRadius = map[
         (cycleSettingsPageListTileRadiusIntRepresentation + 1) % map.length]!;
 
-    // Save user preference for [settingsPageListTileIconSize] to storage.
+    // Save user preference for [settingsPageListTileRadius] to storage.
     setUserPreferences(
         'settingsPageListTileRadius', settingsPageListTileRadius);
 
+    // Update [settingsPageListTileCornerRadius].
     double? settingsPageListTilePadding =
         GetItService.instance<AppData>().settingsPageListTilePadding!;
-
     settingsPageListTileCornerRadius =
-        settingsPageListTilePadding! + settingsPageListTileRadius!;
+        settingsPageListTilePadding + settingsPageListTileRadius!;
   }
 
   Future<void> initialiseAppData() async {
@@ -241,13 +236,11 @@ class AppDataService extends AppData {
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
 
-    print('1. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
-    settingsPageListTileRadius = userPreferences.getDouble('settingsPageListTileRadius');
-    print('2. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
+    settingsPageListTileRadius =
+        userPreferences.getDouble('settingsPageListTileRadius');
     settingsPageListTileRadius = settingsPageListTileRadius ?? 15.0;
-    print('3. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
-    setUserPreferences('settingsPageListTileRadius', settingsPageListTileRadius);
-    print('4. AppDataService, initialiseAppData, settingsPageListTileRadius = $settingsPageListTileRadius');
+    setUserPreferences(
+        'settingsPageListTileRadius', settingsPageListTileRadius);
 
     // Must be placed after retrieval of [settingsPageListTilePadding] and
     // [settingsPageListTileRadius].
@@ -258,15 +251,15 @@ class AppDataService extends AppData {
   /// Initiates field variables; only called once after app start.
   @override
   void initialise() {
-    // Exit if init has already been executed.
-    if (initComplete) return;
+    // Exit if [initialise] has already been executed.
+    if (initialiseComplete) return;
 
     // Calculate and upload [buttonArrayRect] and [buttonCoordinates].
     buttonArrayRect = setButtonArrayRect();
     buttonCoordinates = setButtonCoordinates();
 
-    // Register that init has completed.
-    initComplete = true;
+    // Register that [initialise] has completed.
+    initialiseComplete = true;
   }
 
   /// Calculates the bounding box for [ButtonArray].
@@ -283,6 +276,7 @@ class AppDataService extends AppData {
       rect = const Offset(0.0, 0.0) & Size(longLength, shortLength);
     }
 
+    // A map that determines how to move a Rect based on [buttonAlignment].
     Map<Alignment, Function> map = {
       Alignment.topLeft: (Rect rect) =>
           rect.moveTopLeftTo(basePageViewRect!.topLeft),
@@ -294,27 +288,17 @@ class AppDataService extends AppData {
           rect.moveBottomRightTo(basePageViewRect!.bottomRight),
     };
 
-    if (basePageViewRect != Rect.zero) {
-      rect = map[buttonAlignment]?.call(rect);
-    } else {
-      assert(
-          basePageViewRect != null,
-          'AppData, get buttonArrayRect...error, '
-          'basePageViewRect is null.');
-    }
-
-    return rect;
+    //  Move rect to location specified by map.
+    return map[buttonAlignment!]?.call(rect);
   }
 
-  /// Calculates the list of coordinates for placing [Button] components
-  /// in [ButtonArray].
+  /// Calculates coordinates for placing [Button] components in [ButtonArray].
   List<double> setButtonCoordinates() {
     // A length -- button width plus padding -- for defining [coordinateList].
     // Using two parameters allows for the bounding boxes of buttons to overlap.
     double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
 
-    // Loop over items in [buttonSpecList] and convert each to its
-    // corresponding position.
+    // Use [buttonSpecList] to generate a unique position for each [Button].
     List<double> coordinateList = [];
     for (int i = 0; i < buttonSpecList.length; i++) {
       coordinateList.add(dim * i);
@@ -322,11 +306,9 @@ class AppDataService extends AppData {
     return coordinateList;
   }
 
+  /// Writes [value] to storage using [key] as a unique identifier.
   Future<void> setUserPreferences(String key, var value) async {
     final userPreferences = await SharedPreferences.getInstance();
-
-    // ToDo: Remove this wait function.
-    // await Future.delayed(const Duration(seconds: 10));
 
     if (value is bool) {
       userPreferences.setBool(key, value);
@@ -356,7 +338,7 @@ class AppDataService extends AppData {
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
   }
 
-  /// Toggles [drawLayoutBounds].
+  /// Toggles [drawSlidingGuides].
   void toggleDrawSlidingGuides() {
     drawSlidingGuides = !drawSlidingGuides!;
 

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 // Import project-specific files.
+import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/button_array.dart';
 import 'package:kar_kam/lib/data_store.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
-import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/settings_page_list_tile.dart';
 
 /// Provides [PageSpec] contents for [settingsPage].
@@ -33,8 +33,8 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
   // in order to get the scroll position [Offset] value.
   final ScrollController scrollController = ScrollController();
 
-  // [scrollPositionNotifier] will be passed to an instance of [DataStore]
-  // so that the scroll position can be used within [SettingsPageListTile].
+  // [scrollPositionNotifier] is passed to an instance of [DataStore] so that
+  // the scroll position can be used by [SettingsPageListTile].
   final ValueNotifier<double> scrollPositionNotifier = ValueNotifier(0.0);
 
   @override
@@ -56,7 +56,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
 
   @override
   Widget build(BuildContext context) {
-    // Watch for changes to [Settings.settingsPageListTileIconSize]
+    // Watch for changes to [AppData.settingsPageListTileIconSize]
     // registered with GetIt.
     double settingsPageListTileIconSize =
         watchOnly((AppData a) => a.settingsPageListTileIconSize!);
@@ -89,7 +89,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
       }),
       SettingsPageListTile(
         basePageViewRect:
-        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
         index: 2,
         leading: Icon(
@@ -97,7 +97,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Cycle settingsPageListTileRadius variable in AppModel.
+          // Cycle [settingsPageListTileRadius] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTileRadius');
         }),
@@ -113,7 +113,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
       ),
       SettingsPageListTile(
         basePageViewRect:
-        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
         index: 3,
         leading: Icon(
@@ -121,7 +121,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Cycle settingsPageListTilePadding variable in AppModel.
+          // Cycle [settingsPageListTilePadding] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTilePadding');
         }),
@@ -137,7 +137,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
       ),
       SettingsPageListTile(
         basePageViewRect:
-        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
         index: 4,
         leading: Icon(
@@ -145,7 +145,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Cycle settingsPageListTileIconSize variable in AppModel.
+          // Cycle [settingsPageListTileIconSize] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTileIconSize');
         }),
@@ -169,7 +169,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: () {
-          // Toggle drawLayoutBounds variable in AppModel.
+          // Toggle [drawLayoutBounds] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'drawLayoutBounds');
         },
@@ -193,7 +193,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle settingsPageListTileFadeEffect variable in AppModel.
+          // Toggle [settingsPageListTileFadeEffect] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'settingsPageListTileFadeEffect');
         }),
@@ -217,7 +217,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle buttonAxis variable in AppModel.
+          // Toggle buttonAxis variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'buttonAxis');
         }),
@@ -241,7 +241,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Cycle buttonAlignment variable in AppModel.
+          // Cycle [buttonAlignment] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'buttonAlignment');
         }),
@@ -257,7 +257,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
       ),
       SettingsPageListTile(
         basePageViewRect:
-        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
         index: 9,
         leading: Icon(
@@ -265,7 +265,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Cycle buttonRadius variable in AppModel.
+          // Cycle [buttonRadius] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'buttonRadius');
         }),
@@ -281,7 +281,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
       ),
       SettingsPageListTile(
         basePageViewRect:
-        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
         index: 10,
         leading: Icon(
@@ -289,7 +289,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           size: settingsPageListTileIconSize,
         ),
         onTap: (() {
-          // Toggle drawSlidingGuides variable in AppModel.
+          // Toggle [drawSlidingGuides] variable in [AppData].
           GetItService.instance<AppData>()
               .change(identifier: 'drawSlidingGuides');
         }),

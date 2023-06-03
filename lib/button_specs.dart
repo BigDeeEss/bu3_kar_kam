@@ -14,10 +14,10 @@ class ButtonSpec {
     required this.onPressed,
   });
 
-  /// Graphical indicator of the destination page and/or action.
+  /// Indicates the destination page and/or action.
   final Widget icon;
 
-  /// Defines the action to be taken when the button is activated.
+  /// The action to be taken when the button is activated.
   final void Function(BuildContext context) onPressed;
 }
 

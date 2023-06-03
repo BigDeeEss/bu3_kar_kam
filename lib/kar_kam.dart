@@ -25,23 +25,7 @@ class KarKam extends StatelessWidget {
         child: FutureBuilder(
           future: GetItService.allReady(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              // For the 'has no data' case, where the load of app settings
-              // is still in progress, present a progress indicator.
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Initialising Kar Kam...',
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  CircularProgressIndicator(),
-                ],
-              );
-            } else {
+            if (snapshot.hasData) {
               // For the 'has data' case, when the load of app settings
               // is complete, continue with building BasePage.
               return MaterialApp(
@@ -54,6 +38,22 @@ class KarKam extends StatelessWidget {
                   pageSpec: settingsPage,
                   // pageSpec: filesPage,
                 ),
+              );
+            } else {
+              // For the 'has no data' case, where the load of app settings
+              // is still in progress, present a progress indicator.
+              return const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Initialising Kar Kam...',
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  CircularProgressIndicator(),
+                ],
               );
             }
           },
