@@ -46,6 +46,8 @@ class AppDataService extends AppData {
       'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
+      'settingsPageListTileBorderWidth': (newValue) =>
+          cycleSettingsPageListTileBorderWidth(),
       'settingsPageListTileCornerRadius': (double newValue) =>
           settingsPageListTileCornerRadius = newValue,
       'settingsPageListTileFadeEffect': (newValue) =>
@@ -107,6 +109,29 @@ class AppDataService extends AppData {
 
     // Save user preference for [buttonRadius] to storage.
     setUserPreferences('buttonRadius', buttonRadius);
+  }
+
+  /// Cycle and upload [settingsPageListTileBorderWidth]; update dependencies.
+  void cycleSettingsPageListTileBorderWidth() {
+    // Define a map to convert an integer to a value for
+    // [settingsPageListTileIconSize].
+    Map<int, double> map = {
+      0: 1.0,
+      1: 2.0,
+      2: 3.0,
+      3: 4.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle
+    // [settingsPageListTileIconSize].
+    int settingsPageListTileBorderWidthIntRepresentation =
+    map.inverse()[settingsPageListTileBorderWidth];
+    settingsPageListTileBorderWidth =
+    map[(settingsPageListTileBorderWidthIntRepresentation + 1) % map.length];
+
+    // Save user preference for [settingsPageListTileIconSize] to storage.
+    setUserPreferences(
+        'settingsPageListTileBorderWidth', settingsPageListTileBorderWidth);
   }
 
   /// Cycle and upload [settingsPageListTileIconSize]; update dependencies.
@@ -217,6 +242,12 @@ class AppDataService extends AppData {
     drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
     drawSlidingGuides = drawSlidingGuides ?? true;
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
+
+    settingsPageListTileBorderWidth =
+        userPreferences.getDouble('settingsPageListTileBorderWidth');
+    settingsPageListTileBorderWidth = settingsPageListTileBorderWidth ?? 1.0;
+    setUserPreferences(
+        'settingsPageListTileBorderWidth', settingsPageListTileBorderWidth);
 
     settingsPageListTileFadeEffect =
         userPreferences.getBool('settingsPageListTileFadeEffect');

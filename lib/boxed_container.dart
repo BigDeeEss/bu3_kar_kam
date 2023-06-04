@@ -14,6 +14,9 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
   BoxedContainer({
     Key? key,
     this.alignment,
+    this.borderColor,
+    this.borderRadius,
+    this.borderWidth,
     this.child,
     this.clipBehavior = Clip.none,
     this.color,
@@ -26,8 +29,6 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
     this.transform,
     this.transformAlignment,
     this.width,
-    this.borderColor,
-    this.borderRadius,
   }) : super(key: key);
 
   // [Container]-specific variables.
@@ -48,6 +49,7 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
   // [BoxedContainer]-specific variables.
   final Color? borderColor;
   final double? borderRadius;
+  final double? borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
           BoxDecoration(
             border: drawLayoutBounds!
                 ? Border.all(
-                    width: 0.1,
+                    width: borderWidth ?? 0.1,
                     color: borderColor ?? Colors.black,
                   )
                 : null,

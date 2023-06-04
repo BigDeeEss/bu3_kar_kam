@@ -54,6 +54,9 @@ abstract class AppData extends ChangeNotifier {
   /// Represents whether [initialise] has completed or not.
   bool initialiseComplete = false;
 
+  /// The border width for [SettingsPageListTile].
+  double? settingsPageListTileBorderWidth;
+
   /// The sum of [settingsPageListTilePadding] and [settingsPageListTileRadius].
   double? settingsPageListTileCornerRadius;
 

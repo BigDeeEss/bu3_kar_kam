@@ -376,6 +376,10 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment!);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
+    double settingsPageListTileBorderWidth =
+        watchOnly((AppData a) => a.settingsPageListTileBorderWidth)!;
+
+    // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTilePadding =
         watchOnly((AppData a) => a.settingsPageListTilePadding!);
 
@@ -419,6 +423,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
               onTap: onTap,
               child: BoxedContainer(
                 borderRadius: settingsPageListTileRadius,
+                borderWidth: settingsPageListTileBorderWidth,
                 color: Colors.pink[200],
                 child: Row(
                   children: <Widget>[
@@ -434,7 +439,11 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
                               child: widget ?? Container(),
                             ),
                           ),
-                          _FadingOverlay(height: height - 2 * settingsPageListTilePadding),
+                          _FadingOverlay(
+                            height: height -
+                                2 * settingsPageListTilePadding -
+                                2 * settingsPageListTileBorderWidth
+                          ),
                         ],
                       ),
                     ),
@@ -464,6 +473,10 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
+    // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
+    double settingsPageListTileBorderWidth =
+    watchOnly((AppData a) => a.settingsPageListTileBorderWidth)!;
+
     // Watch for changes to [AppData.settingsPageListTileFadeEffect]
     // registered with [GetIt].
     bool settingsPageListTileFadeEffect =
@@ -480,16 +493,16 @@ class _FadingOverlay extends StatelessWidget with GetItMixin {
         watchOnly((AppData a) => a.settingsPageListTileRadius)!;
 
     return settingsPageListTileFadeEffect
-        ? Positioned(
-            right: 0.0,
+        ? Align(
+            // right: 0.0,
+            alignment: Alignment.centerRight,
             child: BoxedContainer(
               width: settingsPageListTileIconSize,
               height: height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(settingsPageListTileRadius),
+                  Radius.circular(settingsPageListTileRadius - settingsPageListTileBorderWidth),
                 ),
-                // borderRadius: Radius.circular(settingsPageListTileRadius),
                 // https://stackoverflow.com/questions/62782165/how-to-create-this-linear-fading-opacity-effect-in-flutter-for-android
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,

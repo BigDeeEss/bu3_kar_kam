@@ -303,12 +303,36 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
           softWrap: false,
         ),
       ),
+      SettingsPageListTile(
+        basePageViewRect:
+            basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+        height: 75.0,
+        index: 11,
+        leading: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        onTap: (() {
+          // Toggle [drawSlidingGuides] variable in [AppData].
+          GetItService.instance<AppData>()
+              .change(identifier: 'settingsPageListTileBorderWidth');
+        }),
+        trailing: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        widget: const Text(
+          '11. Click to cycle settingsPageListTileBorderWidth!',
+          maxLines: 1,
+          softWrap: false,
+        ),
+      ),
       ...List<Widget>.generate(100, (int index) {
         return SettingsPageListTile(
           basePageViewRect:
               basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
           height: 75.0,
-          index: index + 11,
+          index: index + 12,
           leading: Icon(
             Icons.favorite,
             size: settingsPageListTileIconSize,
