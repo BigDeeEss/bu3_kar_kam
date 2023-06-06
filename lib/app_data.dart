@@ -26,7 +26,8 @@ abstract class AppData extends ChangeNotifier {
   double? buttonPaddingMainAxis;
 
   /// An alternative padding between buttons in [ButtonArray].
-  double buttonPaddingMainAxisAlt = 12.5;
+  double? buttonPaddingMainAxisAlt;
+  // double buttonPaddingMainAxisAlt = 12.5;
 
   /// Defines the padding surrounding each button.
   // EdgeInsetsDirectional get buttonPadding =>

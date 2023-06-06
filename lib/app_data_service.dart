@@ -44,6 +44,7 @@ class AppDataService extends AppData {
       'buttonAlignment': (newValue) => cycleButtonAlignment(),
       'buttonAxis': (newValue) => toggleButtonAxis(),
       'buttonPaddingMainAxis': (newValue) => cycleButtonPaddingMainAxis(),
+      'buttonPaddingMainAxisAlt': (newValue) => cycleButtonPaddingMainAxisAlt(),
       'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
@@ -92,8 +93,6 @@ class AppDataService extends AppData {
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
   void cycleButtonPaddingMainAxis() {
-    print('cycleButtonPaddingMainAxis, executing.');
-    print('cycleButtonPaddingMainAxis, buttonPaddingMainAxis = $buttonPaddingMainAxis');
     // Define a map to convert an integer to a value for [buttonRadius].
     Map<int, double> map = {
       0: 12.0,
@@ -111,6 +110,27 @@ class AppDataService extends AppData {
 
     // Save user preference for [buttonRadius] to storage.
     setUserPreferences('buttonPaddingMainAxis', buttonPaddingMainAxis);
+  }
+
+  /// Cycle and upload a new [buttonRadius]; update dependencies.
+  void cycleButtonPaddingMainAxisAlt() {
+    // Define a map to convert an integer to a value for [buttonRadius].
+    Map<int, double> map = {
+      0: 12.5,
+      1: 15.0,
+      2: 17.5,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle [buttonRadius].
+    int buttonPaddingMainAxisAltIntRepresentation = map.inverse()[buttonPaddingMainAxisAlt]!;
+    buttonPaddingMainAxisAlt = map[(buttonPaddingMainAxisAltIntRepresentation + 1) % map.length]!;
+
+    // Update dependencies: [buttonArrayRect] and [buttonCoordinates].
+    buttonArrayRect = setButtonArrayRect();
+    buttonCoordinates = setButtonCoordinates();
+
+    // Save user preference for [buttonRadius] to storage.
+    setUserPreferences('buttonPaddingMainAxisAlt', buttonPaddingMainAxisAlt);
   }
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
@@ -259,6 +279,10 @@ class AppDataService extends AppData {
     buttonPaddingMainAxis = buttonPaddingMainAxis ?? 15.0;
     setUserPreferences('buttonPaddingMainAxis', buttonPaddingMainAxis);
 
+    buttonPaddingMainAxisAlt = userPreferences.getDouble('buttonPaddingMainAxisAlt');
+    buttonPaddingMainAxisAlt = buttonPaddingMainAxisAlt ?? 12.5;
+    setUserPreferences('buttonPaddingMainAxisAlt', buttonPaddingMainAxisAlt);
+
     buttonRadius = userPreferences.getDouble('buttonRadius');
     buttonRadius = buttonRadius ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
@@ -285,7 +309,7 @@ class AppDataService extends AppData {
 
     settingsPageListTileIconSize =
         userPreferences.getDouble('settingsPageListTileIconSize');
-    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 28.0;
+    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 30.0;
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
 
@@ -323,7 +347,7 @@ class AppDataService extends AppData {
 
   /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
-    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
+    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt!);
     double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis!);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
 
@@ -355,7 +379,7 @@ class AppDataService extends AppData {
   List<double> setButtonCoordinates() {
     // A length -- button width plus padding -- for defining [coordinateList].
     // Using two parameters allows for the bounding boxes of buttons to overlap.
-    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
+    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt!);
 
     // Use [buttonSpecList] to generate a unique position for each [Button].
     List<double> coordinateList = [];
