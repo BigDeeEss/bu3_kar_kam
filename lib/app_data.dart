@@ -8,7 +8,8 @@ import 'package:kar_kam/button_specs.dart';
 abstract class AppData extends ChangeNotifier {
   /// A scale factor which is applied to [appBarHeight] in order to calculate
   /// the [BottomAppBar] height in [BasePage] class.
-  double appBarHeightScaleFactor = 1.0;
+  double? appBarHeightScaleFactor;
+  // double appBarHeightScaleFactor = 1.0;
 
   /// The anchor point for determining [Button] placement in [ButtonArray].
   Alignment? buttonAlignment;
@@ -27,7 +28,6 @@ abstract class AppData extends ChangeNotifier {
 
   /// An alternative padding between buttons in [ButtonArray].
   double? buttonPaddingMainAxisAlt;
-  // double buttonPaddingMainAxisAlt = 12.5;
 
   /// Defines the padding surrounding each button.
   // EdgeInsetsDirectional get buttonPadding =>

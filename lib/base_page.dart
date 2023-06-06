@@ -56,7 +56,7 @@ class _BasePageState extends State<BasePage> with GetItStateMixin {
     // Watch for changes to [appBarHeightScaleFactor] in the instance of
     // [Settings] registered with GetIt.
     double appBarHeightScaleFactor =
-        watchOnly((AppData a) => a.appBarHeightScaleFactor);
+        watchOnly((AppData a) => a.appBarHeightScaleFactor)!;
 
     return Scaffold(
       appBar: AppBar(
