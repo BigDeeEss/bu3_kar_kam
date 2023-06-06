@@ -20,8 +20,8 @@ class Button extends StatelessWidget with GetItMixin {
   @override
   Widget build(BuildContext context) {
     // Watch for changes to [AppData.buttonPadding] registered with [GetIt].
-    EdgeInsetsDirectional buttonPadding =
-        watchOnly((AppData a) => a.buttonPadding);
+    EdgeInsetsDirectional buttonPadding = EdgeInsetsDirectional.all(
+      watchOnly((AppData a) => a.buttonPaddingMainAxis)!);
 
     // Watch for changes to [AppData.buttonRadius] registered with [GetIt].
     double buttonRadius = watchOnly((AppData a) => a.buttonRadius!);

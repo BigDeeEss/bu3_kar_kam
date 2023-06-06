@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/kar_kam.iml" filepath="$PROJECT_DIR$/kar_kam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/kar_kam_android.iml" filepath="$PROJECT_DIR$/android/kar_kam_android.iml" />
     </modules>
   </component>
 </project>

@@ -14,11 +14,11 @@ class ButtonArray extends StatelessWidget with GetItMixin {
   ButtonArray({Key? key}) : super(key: key);
 
   /// Generates a list of coordinates relative to any corner.
-  static List<double>? get buttonCoordinates =>
-      GetItService.instance<AppData>().buttonCoordinates;
+  // static List<double>? get buttonCoordinates =>
+  //     GetItService.instance<AppData>().buttonCoordinates;
 
   /// Calculates the [Rect] data associated with [buttonArray].
-  static Rect? get rect => GetItService.instance<AppData>().buttonArrayRect;
+  // static Rect? get rect => GetItService.instance<AppData>().buttonArrayRect;
 
   @override
   Widget build(BuildContext context) {

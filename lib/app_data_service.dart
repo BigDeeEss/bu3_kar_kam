@@ -43,6 +43,7 @@ class AppDataService extends AppData {
       'basePageViewRect': (Rect newValue) => basePageViewRect = newValue,
       'buttonAlignment': (newValue) => cycleButtonAlignment(),
       'buttonAxis': (newValue) => toggleButtonAxis(),
+      'buttonPaddingMainAxis': (newValue) => cycleButtonPaddingMainAxis(),
       'buttonRadius': (newValue) => cycleButtonRadius(),
       'drawLayoutBounds': (newValue) => toggleDrawLayoutBounds(),
       'drawSlidingGuides': (newValue) => toggleDrawSlidingGuides(),
@@ -87,6 +88,29 @@ class AppDataService extends AppData {
 
     // Save user preference for [buttonAlignment] to storage.
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
+  }
+
+  /// Cycle and upload a new [buttonRadius]; update dependencies.
+  void cycleButtonPaddingMainAxis() {
+    print('cycleButtonPaddingMainAxis, executing.');
+    print('cycleButtonPaddingMainAxis, buttonPaddingMainAxis = $buttonPaddingMainAxis');
+    // Define a map to convert an integer to a value for [buttonRadius].
+    Map<int, double> map = {
+      0: 12.0,
+      1: 15.0,
+      2: 18.0,
+      3: 21.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle [buttonRadius].
+    int buttonPaddingMainAxisIntRepresentation = map.inverse()[buttonPaddingMainAxis]!;
+    buttonPaddingMainAxis = map[(buttonPaddingMainAxisIntRepresentation + 1) % map.length]!;
+
+    // Update dependencies: [buttonArrayRect].
+    buttonArrayRect = setButtonArrayRect();
+
+    // Save user preference for [buttonRadius] to storage.
+    setUserPreferences('buttonPaddingMainAxis', buttonPaddingMainAxis);
   }
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
@@ -181,7 +205,7 @@ class AppDataService extends AppData {
 
     // Update [settingsPageListTileCornerRadius].
     double? settingsPageListTileRadius =
-        GetItService.instance<AppData>().settingsPageListTileRadius!;
+        GetItService.instance<AppData>().settingsPageListTileRadius;
     settingsPageListTileCornerRadius =
         settingsPageListTilePadding! + settingsPageListTileRadius!;
   }
@@ -230,6 +254,10 @@ class AppDataService extends AppData {
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
     buttonAxis = buttonAxis ?? Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
+
+    buttonPaddingMainAxis = userPreferences.getDouble('buttonPaddingMainAxis');
+    buttonPaddingMainAxis = buttonPaddingMainAxis ?? 15.0;
+    setUserPreferences('buttonPaddingMainAxis', buttonPaddingMainAxis);
 
     buttonRadius = userPreferences.getDouble('buttonRadius');
     buttonRadius = buttonRadius ?? 28.0;
@@ -296,7 +324,7 @@ class AppDataService extends AppData {
   /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
     double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
-    double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis);
+    double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis!);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
 
     // Generate Rect of the correct size at screen top left.

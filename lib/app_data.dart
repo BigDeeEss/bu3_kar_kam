@@ -23,14 +23,14 @@ abstract class AppData extends ChangeNotifier {
   List<double>? buttonCoordinates;
 
   /// Main axis padding between buttons in [ButtonArray].
-  double buttonPaddingMainAxis = 15.0;
+  double? buttonPaddingMainAxis;
 
   /// An alternative padding between buttons in [ButtonArray].
   double buttonPaddingMainAxisAlt = 12.5;
 
   /// Defines the padding surrounding each button.
-  EdgeInsetsDirectional get buttonPadding =>
-      EdgeInsetsDirectional.all(buttonPaddingMainAxis);
+  // EdgeInsetsDirectional get buttonPadding =>
+  //     EdgeInsetsDirectional.all(buttonPaddingMainAxis);
 
   /// The available screen dimensions.
   Rect? basePageViewRect;
