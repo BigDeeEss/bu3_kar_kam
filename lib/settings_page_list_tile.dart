@@ -425,6 +425,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
                 borderRadius: settingsPageListTileRadius,
                 borderWidth: settingsPageListTileBorderWidth,
                 color: Colors.pink[200],
+                drawLayoutBoundsOverride: true,
                 child: Row(
                   children: <Widget>[
                     BoxedContainer(

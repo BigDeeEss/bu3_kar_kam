@@ -178,10 +178,11 @@ class AppDataService extends AppData {
     // Define a map to convert an integer to a value for
     // [settingsPageListTileIconSize].
     Map<int, double> map = {
-      0: 1.0,
-      1: 2.0,
-      2: 3.0,
-      3: 4.0,
+      0: 0.0,
+      1: 1.0,
+      2: 2.0,
+      3: 3.0,
+      4: 4.0,
     };
 
     // Use [map], its inverse and the modulus operator to cycle

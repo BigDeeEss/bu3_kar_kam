@@ -22,6 +22,7 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
     this.color,
     this.constraints,
     this.decoration,
+    this.drawLayoutBoundsOverride = false,
     this.foregroundDecoration,
     this.height,
     this.margin,
@@ -50,11 +51,19 @@ class BoxedContainer extends StatelessWidget with GetItMixin {
   final Color? borderColor;
   final double? borderRadius;
   final double? borderWidth;
+  final bool drawLayoutBoundsOverride;
 
   @override
   Widget build(BuildContext context) {
     // Watch for changes to [AppData.drawLayoutBounds] registered with GetIt.
     bool? drawLayoutBounds = watchOnly((AppData a) => a.drawLayoutBounds);
+
+    // Switch control of layout bounds from drawLayoutBounds, which is intended
+    // to be a global app setting, to borderWidth which is localised at the
+    // point of instantiation.
+    if (drawLayoutBoundsOverride && borderWidth != null) {
+      drawLayoutBounds = (borderWidth! > 0.0 ? true : false);
+    }
 
     return Container(
       alignment: alignment,
