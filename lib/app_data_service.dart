@@ -40,7 +40,7 @@ class AppDataService extends AppData {
       // buttonArrayRect = updateButtonArrayRect(),
       // 'buttonCoordinates': (newValue) =>
       // buttonCoordinates = updateButtonCoordinates(),
-      'appBarHeightScaleFactor': (newValue) => cycleAppBarHeightScaleFactor(),
+      // 'appBarHeightScaleFactor': (newValue) => cycleAppBarHeightScaleFactor(),
       'basePageViewRect': (Rect newValue) => basePageViewRect = newValue,
       'buttonAlignment': (newValue) => cycleButtonAlignment(),
       'buttonAxis': (newValue) => toggleButtonAxis(),
@@ -72,22 +72,22 @@ class AppDataService extends AppData {
     }
   }
 
-  /// Cycle and upload a new [buttonAlignment]; update dependencies.
-  void cycleAppBarHeightScaleFactor() {
-    print('cycleAppBarHeightScaleFactor, executing');
-    // Define a map to convert an integer to a value for [buttonRadius].
-    Map<int, double> map = {
-      0: 1.0,
-      1: 2.25,
-    };
-
-    // Use [map], its inverse and the modulus operator to cycle [appBarHeightScaleFactor].
-    int appBarHeightScaleFactorIntRepresentation = map.inverse()[appBarHeightScaleFactor]!;
-    appBarHeightScaleFactor = map[(appBarHeightScaleFactorIntRepresentation + 1) % map.length]!;
-
-    // Save user preference for [appBarHeightScaleFactor] to storage.
-    setUserPreferences('appBarHeightScaleFactor', appBarHeightScaleFactor);
-  }
+  // /// Cycle and upload a new [buttonAlignment]; update dependencies.
+  // void cycleAppBarHeightScaleFactor() {
+  //   print('cycleAppBarHeightScaleFactor, executing');
+  //   // Define a map to convert an integer to a value for [buttonRadius].
+  //   Map<int, double> map = {
+  //     0: 1.0,
+  //     1: 2.25,
+  //   };
+  //
+  //   // Use [map], its inverse and the modulus operator to cycle [appBarHeightScaleFactor].
+  //   int appBarHeightScaleFactorIntRepresentation = map.inverse()[appBarHeightScaleFactor]!;
+  //   appBarHeightScaleFactor = map[(appBarHeightScaleFactorIntRepresentation + 1) % map.length]!;
+  //
+  //   // Save user preference for [appBarHeightScaleFactor] to storage.
+  //   setUserPreferences('appBarHeightScaleFactor', appBarHeightScaleFactor);
+  // }
 
   /// Cycle and upload a new [buttonAlignment]; update dependencies.
   void cycleButtonAlignment() {
@@ -285,9 +285,9 @@ class AppDataService extends AppData {
 
     // In what follows and in all cases: (i) attempt to retrieve stored value,
     // (ii) apply default if necessary, and (iii) store new value.
-    appBarHeightScaleFactor = userPreferences.getDouble('appBarHeightScaleFactor');
-    appBarHeightScaleFactor = appBarHeightScaleFactor ?? 1.0;
-    setUserPreferences('appBarHeightScaleFactor', appBarHeightScaleFactor);
+    // appBarHeightScaleFactor = userPreferences.getDouble('appBarHeightScaleFactor');
+    // appBarHeightScaleFactor = appBarHeightScaleFactor ?? 1.0;
+    // setUserPreferences('appBarHeightScaleFactor', appBarHeightScaleFactor);
 
     buttonAlignment = alignmentFromStringList(
         userPreferences.getStringList('buttonAlignment'));
