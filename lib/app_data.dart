@@ -6,10 +6,10 @@ import 'package:kar_kam/button_specs.dart';
 
 /// Stores app data.
 abstract class AppData extends ChangeNotifier {
-  /// A scale factor which is applied to [appBarHeight] in order to calculate
-  /// the [BottomAppBar] height in [BasePage] class.
-  double? appBarHeightScaleFactor;
-  // double appBarHeightScaleFactor = 1.0;
+  // /// A scale factor which is applied to [appBarHeight] in order to calculate
+  // /// the [BottomAppBar] height in [BasePage] class.
+  // double? appBarHeightScaleFactor;
+  // // double appBarHeightScaleFactor = 1.0;
 
   /// The anchor point for determining [Button] placement in [ButtonArray].
   Alignment? buttonAlignment;

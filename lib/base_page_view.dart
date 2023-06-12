@@ -6,6 +6,7 @@ import 'package:kar_kam/app_data.dart';
 import 'package:kar_kam/lib/data_store.dart';
 import 'package:kar_kam/lib/get_it_service.dart';
 import 'package:kar_kam/lib/global_key_extension.dart';
+import 'package:kar_kam/lib/rect_extension.dart';
 
 /// Is a wrapper for an instance of [DataStore] and [_BasePageView].
 ///
@@ -59,6 +60,8 @@ class _BasePageViewState extends State<_BasePageView> {
   /// bounding box for [_BasePageView], hence the reason for the two-part build.
   List<Widget>? pageContents;
 
+  double? appBarHeight;
+
   @override
   void initState() {
     // [_BasePageView] is built in two phases:
@@ -71,18 +74,33 @@ class _BasePageViewState extends State<_BasePageView> {
     // knowledge of the available screen dimensions which this widget attempts
     // to provide.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Get [basePageViewKey] (from [DataStore] in [BasePageView]),
-      // calculate [basePageViewRect] and upload to the registered instance of
-      // [AppData] in [GetIt].
+      // Calculate [basePageViewRect] assuming bottomNavigationBar is null.
       GlobalKey basePageViewKey =
-          DataStore.of<GlobalKey>(context, const ValueKey('basePageViewKey'))
+          DataStore
+              .of<GlobalKey>(context, const ValueKey('basePageViewKey'))
               .data;
       Rect? basePageViewRect = basePageViewKey.globalPaintBounds;
 
-      // Check and upload basePageViewRect to the instance of [AppData]
+      // if (basePageViewRect is Rect) {
+      //   // Shrink [basePageViewRect] by bottomNavigationBar height.
+      //   double screenHeight = MediaQuery
+      //       .of(context)
+      //       .size
+      //       .height;
+      //   double appBarHeightScaleFactor = GetItService
+      //       .instance<AppData>()
+      //       .appBarHeightScaleFactor!;
+      //   appBarHeight =
+      //       (screenHeight - basePageViewRect.height) * appBarHeightScaleFactor;
+      //   basePageViewRect.inflateDownwards(-appBarHeight!);
+      // } else {
+      //   assert(basePageViewRect !=
+      //       null, '_BasePageViewState, initState...error, '
+      //       'basePageViewRect is null...');
+      // }
+
+      // Upload [basePageViewRect] to the instance of [AppData]
       // registered with [GetItService].
-      assert(basePageViewRect != null,
-          '_BasePageViewState, initState...error, basePageViewRect is null...');
       GetItService.instance<AppData>().change(
         identifier: 'basePageViewRect',
         newValue: basePageViewRect,
@@ -103,12 +121,23 @@ class _BasePageViewState extends State<_BasePageView> {
         });
       }
     });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   bottomNavigationBar: (appBarHeight != null)
+    //       ? BottomAppBar(
+    //     color: Colors.blue,
+    //     height: appBarHeight,
+    //   )
+    //       : null,
+    //   body: Stack(
+    //     fit: StackFit.expand,
+    //     children: pageContents ?? [Container()],
+    //   ),
+    // );
     return Stack(
       fit: StackFit.expand,
       children: pageContents ?? [Container()],
@@ -124,12 +153,13 @@ class BasePageViewTest extends StatelessWidget {
   Widget build(BuildContext context) {
     // Get [basePageViewRect] (from [DataStore] in [BasePage]).
     GlobalKey basePageViewKey =
-        DataStore.of<GlobalKey>(context, const ValueKey('basePageViewKey'))
+        DataStore
+            .of<GlobalKey>(context, const ValueKey('basePageViewKey'))
             .data;
     Rect? basePageViewRect = basePageViewKey.globalPaintBounds;
 
     assert(basePageViewRect != null,
-        'BasePageViewTest, build...basePageViewRect is null...');
+    'BasePageViewTest, build...basePageViewRect is null...');
 
     // Print basePageViewRect for test purposes and return [Placeholder]..
     print('BasePageViewTest, build...basePageViewRect = $basePageViewRect...');
