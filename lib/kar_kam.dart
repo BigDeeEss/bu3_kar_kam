@@ -22,7 +22,7 @@ class KarKam extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Material(
-        child: FutureBuilder(
+        child: FutureBuilder<void>(
           future: GetItService.allReady(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

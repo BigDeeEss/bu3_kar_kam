@@ -60,7 +60,7 @@ class _BasePageViewState extends State<_BasePageView> {
   /// bounding box for [_BasePageView], hence the reason for the two-part build.
   List<Widget>? pageContents;
 
-  double? appBarHeight;
+  // double? appBarHeight;
 
   @override
   void initState() {
@@ -74,7 +74,7 @@ class _BasePageViewState extends State<_BasePageView> {
     // knowledge of the available screen dimensions which this widget attempts
     // to provide.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Calculate [basePageViewRect] assuming bottomNavigationBar is null.
+      // Calculate [basePageViewRect].
       GlobalKey basePageViewKey =
           DataStore
               .of<GlobalKey>(context, const ValueKey('basePageViewKey'))
